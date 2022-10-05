@@ -8,7 +8,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.control.Move;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,10 +23,14 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
+    public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
+                                                                // 0: occupied by an obj, 1: pass-able (grass)
+
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
+    private List<Balloom> ballooms = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -98,6 +104,7 @@ public class BombermanGame extends Application {
                             break;
                         case '1':
                             object = new Balloom(j, i, Sprite.balloom_left1.getFxImage());
+                            ballooms.add((Balloom) object);
                             break;
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
@@ -110,6 +117,7 @@ public class BombermanGame extends Application {
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
+                            obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
                     stillObjects.add(object);
@@ -123,12 +131,20 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        entities.forEach(Entity::update);
+        ballooms.forEach(Balloom::update);
+        for (Balloom a : ballooms) {
+            a.setCount_to_run(a.getCount_to_run() + 1);
+            if (a.getCount_to_run() == 4) {
+                Move.checkRun(a);
+                a.setCount_to_run(0);
+            }
+        }
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        ballooms.forEach(g -> g.render(gc));
     }
 }
