@@ -42,18 +42,21 @@ public class Move {
     }
 
     public static void down(AnimatedEntity character) {        //Control all mob to go down
-        //if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
-            if (character instanceof Bomber && Blocked.block_down(character)) {              //Block???
-                character.setDirection("down");
-                character.setCount(4 / 1);
-                checkRun(character);
+            if (character instanceof Bomber && Blocked.block_down(character)) {
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {//Block???
+                    character.setDirection("down");
+                    character.setCount(8 / 1);
+                    checkRun(character);
+                }
             }
             if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll
-                    || character instanceof Kondoria) && Blocked.block_down(character)) {
-                character.setDirection("down");
-                character.setCount(8);
-                checkRun(character);
+                    || character instanceof Kondoria ) && Blocked.block_down(character)) {
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
+                    character.setDirection("down");
+                    character.setCount(8);
+                    checkRun(character);
             }
+        }
     }
 
     private static void down_step(AnimatedEntity character) {      //Show the animation of all mob that go down
@@ -121,18 +124,21 @@ public class Move {
 
 
     public static void up(AnimatedEntity character) {      //Control all mob to go up
-        //if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
             if (character instanceof Bomber && Blocked.block_up(character)) {
-                character.setDirection("up");
-                character.setCount(4);
-                checkRun(character);
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
+                    character.setDirection("up");
+                    character.setCount(8);
+                    checkRun(character);
+                }
             }
             if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll
                     || character instanceof Kondoria) && Blocked.block_up(character)) {
-                character.setDirection("up");
-                character.setCount(8);
-                checkRun(character);
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
+                    character.setDirection("up");
+                    character.setCount(8);
+                    checkRun(character);
             }
+        }
     }
 
     private static void up_step(AnimatedEntity character) {        //Show the animation of all mob that go down
@@ -199,18 +205,21 @@ public class Move {
     }
 
     public static void left(AnimatedEntity character) {        //Control all mob to go left
-        //if (character.getX() % 32 == 0 && character.getY() % 32 == 0) {
             if (character instanceof Bomber && Blocked.block_left(character)) {
-                character.setDirection("left");
-                character.setCount(4);
-                checkRun(character);
+                if(character.getX() % 32 == 0 && character.getY() % 32 == 0) {
+                    character.setDirection("left");
+                    character.setCount(8);
+                    checkRun(character);
+                }
             }
             if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll
                     || character instanceof Kondoria) && Blocked.block_left(character)) {
-                character.setDirection("left");
-                character.setCount(8);
-                checkRun(character);
+                if(character.getX() % 32 == 0 && character.getY() % 32 == 0) {
+                    character.setDirection("left");
+                    character.setCount(8);
+                    checkRun(character);
             }
+        }
     }
 
     private static void left_step(AnimatedEntity character) {      //Show the animation of all mob that go left
@@ -292,19 +301,22 @@ public class Move {
     }
 
     public static void right(AnimatedEntity character) {       //Control all mob to go right
-        //if (character.getX() % 32 == 0 && character.getY() % 32 == 0) {
             if (character instanceof Bomber && Blocked.block_right(character)) {
-                character.setDirection("right");
-                character.setCount(4);
-                checkRun(character);
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
+                    character.setDirection("right");
+                    character.setCount(8);
+                    checkRun(character);
+                }
             }
             if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll
                     || character instanceof Kondoria) && Blocked.block_right(character)) {
-                character.setDirection("right");
-                character.setCount(8);
-                checkRun(character);
+                if (character.getX() % 32 == 0 && character.getY() % 32 == 0) {
+                    character.setDirection("right");
+                    character.setCount(8);
+                    checkRun(character);
             }
         }
+    }
 
     public static void right_step(AnimatedEntity character) {      //Show the animation of all mob that go right
         if (character instanceof Bomber && character.getX() % 8 == 0) {

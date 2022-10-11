@@ -55,6 +55,8 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(event -> {
+            boolean momentum = false;
+            boolean switch_direction = true;
             if (true){
             switch (event.getCode()) {
                 case UP:
@@ -72,6 +74,26 @@ public class BombermanGame extends Application {
             }
             }
         });
+
+        /*scene.setOnKeyReleased(event -> {
+            if (true){
+                switch (event.getCode()) {
+                    case UP:
+                        Move.down(bomberman);
+                        break;
+                    case DOWN:
+                        Move.up(bomberman);
+                        break;
+                    case RIGHT:
+                        Move.left(bomberman);
+                        break;
+                    case LEFT:
+                        Move.right(bomberman);
+                        break;
+                }
+            }
+        });*/
+
         createMap();
         // Them scene vao stage
         stage.setScene(scene);
