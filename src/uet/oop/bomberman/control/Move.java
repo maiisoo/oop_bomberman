@@ -8,10 +8,10 @@ import uet.oop.bomberman.graphics.*;
 
 public class Move {
     public static void checkRun(AnimatedEntity animal) {    //Check if all your mob move or not
-/*        if (animal instanceof Bomber && animal.getCount() > 0) {
-            setDirection(animal.getDirection(), animal, 8 * speed);
+        if (animal instanceof Bomber && animal.getCount() > 0) {
+            setDirection(animal.getDirection(), animal, 8 * 1);
             animal.setCount(animal.getCount() - 1);
-        }*/
+        }
         if ((animal instanceof Balloom)
                 && animal.getCount() > 0) {
             setDirection(animal.getDirection(), animal, 16);
@@ -43,13 +43,13 @@ public class Move {
 
     public static void down(AnimatedEntity character) {        //Control all mob to go down
         if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
-            if (character instanceof Bomber) {              //Block???
+            if (character instanceof Bomber && Blocked.block_down(character)) {              //Block???
                 character.setDirection("down");
-                character.setCount(4);
+                character.setCount(4/1);
                 checkRun(character);
             }
             if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll
-                    || character instanceof Kondoria) && Blocked.block_down(character)) {
+                    || character instanceof Kondoria ) && Blocked.block_down(character)) {
                 character.setDirection("down");
                 character.setCount(8);
                 checkRun(character);
@@ -58,21 +58,21 @@ public class Move {
     }
 
     private static void down_step(AnimatedEntity character) {      //Show the animation of all mob that go down
-            /*if (character instanceof Bomber && character.getY() % 8 == 0) {
+            if (character instanceof Bomber && character.getY() % 8 == 0) {
                 if (character.getSwap() == 1) {
-                    character.setImg(Sprite.control_down.getFxImage());
+                    character.setImg(Sprite.player_down.getFxImage());
                     character.setSwap(2);
                 } else if (character.getSwap() == 2) {
-                    character.setImg(Sprite.control_down_1.getFxImage());
+                    character.setImg(Sprite.player_down_1.getFxImage());
                     character.setSwap(3);
                 } else if (character.getSwap() == 3) {
-                    character.setImg(Sprite.control_down.getFxImage());
+                    character.setImg(Sprite.player_down.getFxImage());
                     character.setSwap(4);
                 } else {
-                    character.setImg(Sprite.control_down_2.getFxImage());
+                    character.setImg(Sprite.player_down_2.getFxImage());
                     character.setSwap(1);
                 }
-            }*/
+            }
         if (character instanceof Balloom && character.getY() % 8 == 0) {
             if (character.getSwap() == 1) {
                 character.setImg(Sprite.balloom_right1.getFxImage());
@@ -138,21 +138,21 @@ public class Move {
     }
 
     private static void up_step(AnimatedEntity character) {        //Show the animation of all mob that go down
-/*        if (character instanceof Bomber && character.getY() % 8 == 0) {
+        if (character instanceof Bomber && character.getY() % 8 == 0) {
             if (character.getSwap() == 1) {
-                character.setImg(Sprite.control_up.getFxImage());
+                character.setImg(Sprite.player_up.getFxImage());
                 character.setSwap(2);
             } else if (character.getSwap() == 2) {
-                character.setImg(Sprite.control_up_1.getFxImage());
+                character.setImg(Sprite.player_up_1.getFxImage());
                 character.setSwap(3);
             } else if (character.getSwap() == 3) {
-                character.setImg(Sprite.control_up.getFxImage());
+                character.setImg(Sprite.player_up.getFxImage());
                 character.setSwap(4);
             } else {
-                character.setImg(Sprite.control_up_2.getFxImage());
+                character.setImg(Sprite.player_up_2.getFxImage());
                 character.setSwap(1);
             }
-        }*/
+        }
         if (character instanceof Balloom && character.getY() % 8 == 0) {
             if (character.getSwap() == 1) {
                 character.setImg(Sprite.balloom_left1.getFxImage());
@@ -217,21 +217,21 @@ public class Move {
     }
 
     private static void left_step(AnimatedEntity character) {      //Show the animation of all mob that go left
-        /*if (character instanceof Bomber && character.getX() % 8 == 0) {
+        if (character instanceof Bomber && character.getX() % 8 == 0) {
             if (character.getSwap() == 1) {
-                character.setImg(Sprite.control_left.getFxImage());
+                character.setImg(Sprite.player_left.getFxImage());
                 character.setSwap(2);
             } else if (character.getSwap() == 2) {
-                character.setImg(Sprite.control_left_1.getFxImage());
+                character.setImg(Sprite.player_left_1.getFxImage());
                 character.setSwap(3);
             } else if (character.getSwap() == 3) {
-                character.setImg(Sprite.control_left.getFxImage());
+                character.setImg(Sprite.player_left.getFxImage());
                 character.setSwap(4);
             } else {
-                character.setImg(Sprite.control_left_2.getFxImage());
+                character.setImg(Sprite.player_left_2.getFxImage());
                 character.setSwap(1);
             }
-        }*/
+        }
         if (character instanceof Balloom && character.getY() % 8 == 0) {
             if (character.getSwap() == 1) {
                 character.setImg(Sprite.balloom_right1.getFxImage());
@@ -311,21 +311,21 @@ public class Move {
     }
 
     public static void right_step(AnimatedEntity character) {      //Show the animation of all mob that go right
-/*        if (character instanceof Bomber && character.getX() % 8 == 0) {
+        if (character instanceof Bomber && character.getX() % 8 == 0) {
             if (character.getSwap() == 1) {
-                character.setImg(Sprite.control_right.getFxImage());
+                character.setImg(Sprite.player_right.getFxImage());
                 character.setSwap(2);
             } else if (character.getSwap() == 2) {
-                character.setImg(Sprite.control_right_1.getFxImage());
+                character.setImg(Sprite.player_right_1.getFxImage());
                 character.setSwap(3);
             } else if (character.getSwap() == 3) {
-                character.setImg(Sprite.control_right.getFxImage());
+                character.setImg(Sprite.player_right.getFxImage());
                 character.setSwap(4);
             } else {
-                character.setImg(Sprite.control_right_2.getFxImage());
+                character.setImg(Sprite.player_right_2.getFxImage());
                 character.setSwap(1);
             }
-        }*/
+        }
 
         if (character instanceof Balloom && character.getY() % 8 == 0) {
             if (character.getSwap() == 1) {

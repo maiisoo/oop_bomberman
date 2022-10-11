@@ -6,12 +6,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.control.Move;
 
+import java.beans.EventHandler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -30,9 +32,9 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Enemy> enemies = new ArrayList<>();
+    private List<Balloom> ballooms = new ArrayList<>();
 
-    private  List<Balloom> ballooms = new ArrayList<>();
+    public static Bomber bomberman;
 
 
     public static void main(String[] args) {
@@ -52,6 +54,25 @@ public class BombermanGame extends Application {
         // Tao scene
         Scene scene = new Scene(root);
 
+        scene.setOnKeyPressed(event -> {
+            if(true){
+            switch (event.getCode()) {
+                case UP:
+                    Move.up(bomberman);
+                    break;
+                case DOWN:
+                    Move.down(bomberman);
+                    break;
+                case RIGHT:
+                    Move.right(bomberman);
+                    break;
+                case LEFT:
+                    Move.left(bomberman);
+                    break;
+            }
+            }
+        });
+        createMap();
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
@@ -100,28 +121,38 @@ public class BombermanGame extends Application {
                     switch(data.charAt(j)) {
                         case '#':
                             object = new Wall(j, i, Sprite.wall.getFxImage());
-                            stillObjects.add(object);
+                            obj_matrix[j][i] = 0;
                             break;
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
-                            stillObjects.add(object);
+                            Grass grass1 = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grass1);
+                            obj_matrix[j][i] = 1;
                             break;
                         case '1':
                             object = new Balloom(j, i, Sprite.balloom_left1.getFxImage());
                             ballooms.add((Balloom) object);
+                            Grass grass2 = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grass2);
+                            obj_matrix[j][i] = 1;
                             break;
-                        /*case '2':
-                            object = new Balloom(j, i, Sprite.oneal_left1.getFxImage());
-                            enemies.add((Oneal) object);
-                            break;*/
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
+                            Grass grass3 = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grass3);
+                            obj_matrix[j][i] = 1;
                             break;
                         case 'f':
                             object = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
+                            Grass grass4 = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grass4);
+                            obj_matrix[j][i] = 1;
                             break;
                         case 's':
                             object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            Grass grass5 = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grass5);
+                            obj_matrix[j][i] = 1;
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
@@ -129,7 +160,7 @@ public class BombermanGame extends Application {
                             obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
-                    //stillObjects.add(object);
+                    stillObjects.add(object);
                 }
             }
             myReader.close();
