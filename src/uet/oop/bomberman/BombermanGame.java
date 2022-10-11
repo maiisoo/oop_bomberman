@@ -55,7 +55,7 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(event -> {
-            if(true){
+            if (true){
             switch (event.getCode()) {
                 case UP:
                     Move.up(bomberman);

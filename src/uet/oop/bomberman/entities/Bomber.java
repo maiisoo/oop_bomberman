@@ -25,11 +25,8 @@ public class Bomber extends AnimatedEntity {
 
     }
 
-
-
     public int getSpeed(){
         return this.speed;
     }
-
 
 }
