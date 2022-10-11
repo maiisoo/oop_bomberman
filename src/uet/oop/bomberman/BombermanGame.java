@@ -30,7 +30,9 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Balloom> ballooms = new ArrayList<>();
+    private List<Enemy> enemies = new ArrayList<>();
+
+    private  List<Balloom> ballooms = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -98,14 +100,20 @@ public class BombermanGame extends Application {
                     switch(data.charAt(j)) {
                         case '#':
                             object = new Wall(j, i, Sprite.wall.getFxImage());
+                            stillObjects.add(object);
                             break;
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
+                            stillObjects.add(object);
                             break;
                         case '1':
                             object = new Balloom(j, i, Sprite.balloom_left1.getFxImage());
                             ballooms.add((Balloom) object);
                             break;
+                        /*case '2':
+                            object = new Balloom(j, i, Sprite.oneal_left1.getFxImage());
+                            enemies.add((Oneal) object);
+                            break;*/
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
                             break;
@@ -117,10 +125,11 @@ public class BombermanGame extends Application {
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(object);
                             obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
-                    stillObjects.add(object);
+                    //stillObjects.add(object);
                 }
             }
             myReader.close();

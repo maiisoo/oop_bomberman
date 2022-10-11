@@ -9,10 +9,10 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
-    protected int x;
+    protected int x;     // change to static to call in Oneal's update()
 
     //Tọa độ Y tính từ góc trái trên trong Canvas
-    protected int y;
+    protected int y;     // change to static to call in Oneal's update()
 
     protected Image img;
 
@@ -37,11 +37,11 @@ public abstract class Entity {
 
     public int getX() {
         return x;
-    }
+    }  // change to static function to call in Oneal's update()
 
     public int getY() {
         return y;
-    }
+    }   // change to static function to call in Oneal's update()
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
