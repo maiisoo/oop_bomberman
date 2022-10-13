@@ -23,6 +23,7 @@ import java.util.Scanner;
 
 public class BombermanGame extends Application {
 
+    public static boolean isDead = false;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
@@ -33,7 +34,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Balloom> ballooms = new ArrayList<>();
+    public static List<Balloom> ballooms = new ArrayList<>();
 
     public static Bomber bomberman;
 
@@ -70,6 +71,9 @@ public class BombermanGame extends Application {
                     break;
                 case LEFT:
                     Move.left(bomberman);
+                    break;
+                case SPACE:
+                    isDead = true;
                     break;
             }
             }
