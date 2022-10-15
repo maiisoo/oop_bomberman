@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class BombermanGame extends Application {
 
+    public static boolean isDead = false;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
@@ -38,9 +40,8 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
 
 
-    public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
-    }
+
+
 
     @Override
     public void start(Stage stage) {
@@ -56,7 +57,9 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(event -> {
-            if(true){
+            boolean momentum = false;
+            boolean switch_direction = true;
+            if (true){
             switch (event.getCode()) {
                 case UP:
                     Move.up(bomberman);
@@ -70,6 +73,9 @@ public class BombermanGame extends Application {
                 case LEFT:
                     Move.left(bomberman);
                     break;
+                case SPACE:
+                    isDead = true;
+                    break;
             }
             }
         });
@@ -77,6 +83,7 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -109,6 +116,8 @@ public class BombermanGame extends Application {
          */
 
         try {
+            bomberman = new Bomber(1,1,Sprite.player_right_2.getFxImage());
+            entities.add(bomberman);
             File myObj = new File("res/levels/Level1.txt");
             Scanner myReader = new Scanner(myObj);
             int level = myReader.nextInt();
@@ -202,6 +211,9 @@ public class BombermanGame extends Application {
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
         ballooms.forEach(g -> g.render(gc));
-        enemies.forEach(g -> g.render(gc));
+    }
+
+    public static void main(String[] args) {
+        Application.launch(BombermanGame.class);
     }
 }
