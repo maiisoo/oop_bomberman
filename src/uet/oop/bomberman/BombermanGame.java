@@ -180,6 +180,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         ballooms.forEach(Balloom::update);
+        enemies.forEach(Oneal::update);
         for (Balloom a : ballooms) {
             a.setCount_to_run(a.getCount_to_run() + 1);
             if (a.getCount_to_run() == 4) {
@@ -187,6 +188,13 @@ public class BombermanGame extends Application {
                 a.setCount_to_run(0);
             }
         }
+        /*for (Oneal a : enemies) {
+            a.setCount_to_run(a.getCount_to_run() + 1);
+            if (a.getCount_to_run() == 4) {
+                Move.checkRun(a);
+                a.setCount_to_run(0);
+            }
+        }*/
     }
 
     public void render() {
