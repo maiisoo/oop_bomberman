@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Bomber;
 
+import static uet.oop.bomberman.BombermanGame.bomberman;
+
 public class Oneal extends Enemy {
     public Oneal(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -13,21 +15,21 @@ public class Oneal extends Enemy {
         super(xUnit, yUnit, img, is_move, swap, direction, count, count_to_run);
     }
 
-   /* @Override
+   @Override
     public void update() {
         if (this.y % 16 == 0 && this.x % 16 == 0) {
-            if (Bomber.getX() < this.x) {
+            if (bomberman.getX() < this.x) {
                 Move.left(this);
             }
-            if (Bomber.getX() > this.x) {
+            if (bomberman.getX() > this.x) {
                 Move.right(this);
             }
-            if (Bomber.getY() > this.y) {
+            if (bomberman.getY() > this.y) {
                 Move.down(this);
             }
-            if (Bomber.getY() < this.y) {
+            if (bomberman.getY() < this.y) {
                 Move.up(this);
             }
         }
-    }*/
+    }
 }

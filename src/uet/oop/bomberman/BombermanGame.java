@@ -33,6 +33,7 @@ public class BombermanGame extends Application {
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Balloom> ballooms = new ArrayList<>();
+    private  List<Oneal> enemies = new ArrayList<>();
 
     public static Bomber bomberman;
 
@@ -136,6 +137,13 @@ public class BombermanGame extends Application {
                             stillObjects.add(grass2);
                             obj_matrix[j][i] = 1;
                             break;
+                        case '2':
+                            object = new Oneal(j, i, Sprite.oneal_left1.getFxImage());
+                            enemies.add((Oneal) object);
+                            Grass grassUnderOneal = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderOneal);
+                            obj_matrix[j][i] = 1;
+                            break;
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
                             Grass grass3 = new Grass(j,i,Sprite.grass.getFxImage());
@@ -186,5 +194,6 @@ public class BombermanGame extends Application {
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
         ballooms.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
     }
 }
