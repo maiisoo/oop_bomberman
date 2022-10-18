@@ -39,7 +39,7 @@ public class BombermanGame extends Application {
 
     public static Bomber bomberman;
 
-
+    public static int[][] list_kill = new int[WIDTH][HEIGHT];
     @Override
     public void start(Stage stage) {
         // Tao Canvas
