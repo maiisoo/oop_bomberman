@@ -28,20 +28,15 @@ public class BombermanGame extends Application {
     public static final int HEIGHT = 13;
 
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
-                                                                // 0: occupied by an obj, 1: pass-able (grass)
+    // 0: occupied by an obj, 1: pass-able (grass)
 
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Balloom> ballooms = new ArrayList<>();
-    private  List<Oneal> enemies = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
 
     public static Bomber bomberman;
-
-
-
-
 
     @Override
     public void start(Stage stage) {
@@ -96,8 +91,8 @@ public class BombermanGame extends Application {
 
         createMap();
 
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
+        //Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        //entities.add(bomberman);
     }
 
     public void createMap() {
@@ -141,7 +136,7 @@ public class BombermanGame extends Application {
                             break;
                         case '1':
                             object = new Balloom(j, i, Sprite.balloom_left1.getFxImage());
-                            ballooms.add((Balloom) object);
+                            enemies.add((Balloom) object);
                             Grass grass2 = new Grass(j,i,Sprite.grass.getFxImage());
                             stillObjects.add(grass2);
                             obj_matrix[j][i] = 1;
@@ -151,6 +146,13 @@ public class BombermanGame extends Application {
                             enemies.add((Oneal) object);
                             Grass grassUnderOneal = new Grass(j,i,Sprite.grass.getFxImage());
                             stillObjects.add(grassUnderOneal);
+                            obj_matrix[j][i] = 1;
+                            break;
+                        case '3':
+                            object = new Doll(j, i, Sprite.doll_left1.getFxImage());
+                            enemies.add((Doll) object);
+                            Grass grassUnderDoll = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderDoll);
                             obj_matrix[j][i] = 1;
                             break;
                         case 'b':
@@ -188,29 +190,22 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        ballooms.forEach(Balloom::update);
-        enemies.forEach(Oneal::update);
-        for (Balloom a : ballooms) {
-            a.setCount_to_run(a.getCount_to_run() + 1);
-            if (a.getCount_to_run() == 4) {
-                Move.checkRun(a);
-                a.setCount_to_run(0);
+        enemies.forEach(Enemy::update);
+        bomberman.update();
+        for (Enemy e : enemies) {
+            e.setCount_to_run(e.getCount_to_run() + 1);
+            if (e.getCount_to_run() == 4) {
+                Move.checkRun(e);
+                e.setCount_to_run(0);
             }
         }
-        /*for (Oneal a : enemies) {
-            a.setCount_to_run(a.getCount_to_run() + 1);
-            if (a.getCount_to_run() == 4) {
-                Move.checkRun(a);
-                a.setCount_to_run(0);
-            }
-        }*/
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
-        ballooms.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
     }
 
     public static void main(String[] args) {

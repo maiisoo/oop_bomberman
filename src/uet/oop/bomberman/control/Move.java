@@ -6,46 +6,64 @@ import uet.oop.bomberman.entities.Enemy.*;
 
 import uet.oop.bomberman.graphics.*;
 
+import java.util.Random;
+
 public class Move {
-    public static void checkRun(AnimatedEntity animal) {    //Check if all your mob move or not
-        if (animal instanceof Bomber && animal.getCount() > 0) {
-            setDirection(animal.getDirection(), animal, 8 * 1);
-            animal.setCount(animal.getCount() - 1);
+    public static void checkRun(AnimatedEntity character) {    //Check if all your mob move or not
+        if (character instanceof Bomber && character.getCount() > 0) {
+            setDirection(character.getDirection(), character, 8);
+            character.setCount(character.getCount() - 1);
         }
-        if ((animal instanceof Balloom)
-                && animal.getCount() > 0) {
-            setDirection(animal.getDirection(), animal, 16);
-            animal.setCount(animal.getCount() - 1);
+        if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll
+                || character instanceof Kondoria) && character.getCount() > 0) {
+            setDirection(character.getDirection(), character, 4);
+            character.setCount(character.getCount() - 1);
         }
+        /*if ((character instanceof Balloom || character instanceof Doll
+                || character instanceof Kondoria) && character.getCount() > 0) {
+            setDirection(character.getDirection(), character, 4);
+            character.setCount(character.getCount() - 1);
+        }
+        if (character instanceof Oneal && character.getCount() > 0) {
+            Random rand = null;
+            int step = 1;
+            if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
+                rand = new Random(System.currentTimeMillis());
+                step = rand.nextInt(2) + 1;
+            }
+            //int step = 1;
+            setDirection(character.getDirection(), character, step * 4);
+            System.out.println(step);
+            character.setCount(character.getCount() - 1);
+        }*/
     }
 
-    private static void setDirection(String direction, AnimatedEntity character, int isMove) {     //Show the direction of all mob
-        isMove = 4;
+    private static void setDirection(String direction, AnimatedEntity character, int step) {     //Show the direction of all mob
         switch (direction) {
             case "down":
                 down_step(character);
-                character.setY(character.getY() + isMove);
+                character.setY(character.getY() + step);
                 break;
             case "up":
                 up_step(character);
-                character.setY(character.getY() - isMove);
+                character.setY(character.getY() - step);
                 break;
             case "left":
                 left_step(character);
-                character.setX(character.getX() - isMove);
+                character.setX(character.getX() - step);
                 break;
             case "right":
                 right_step(character);
-                character.setX(character.getX() + isMove);
+                character.setX(character.getX() + step);
                 break;
         }
     }
 
     public static void down(AnimatedEntity character) {        //Control all mob to go down
             if (character instanceof Bomber && Blocked.block_down(character)) {
-                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {//Block???
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
                     character.setDirection("down");
-                    character.setCount(8 / 1);
+                    character.setCount(8);
                     checkRun(character);
                 }
             }

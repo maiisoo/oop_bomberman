@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Enemy.Balloom;
+import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
 import uet.oop.bomberman.BombermanGame.*;
@@ -37,9 +38,9 @@ public class Bomber extends AnimatedEntity {
     private boolean enemiesExposure(){
         int ax = BombermanGame.bomberman.getX();
         int ay = BombermanGame.bomberman.getY();
-        for (Balloom balloom : BombermanGame.ballooms) {
-            int bx = balloom.getX();
-            int by = balloom.getY();
+        for (Enemy enemy : BombermanGame.enemies) {
+            int bx = enemy.getX();
+            int by = enemy.getY();
             if (
                     ax == bx && by - 32 <= ay && by + 32 >= ay
                             || ay == by && bx - 32 <= ax && bx + 32 >= ax
