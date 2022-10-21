@@ -155,6 +155,13 @@ public class BombermanGame extends Application {
                             stillObjects.add(grassUnderDoll);
                             obj_matrix[j][i] = 1;
                             break;
+                        case '4':
+                            object = new Kondoria(j, i, Sprite.kondoria_left1.getFxImage());
+                            enemies.add((Kondoria) object);
+                            Grass grassUnderKondoria = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderKondoria);
+                            obj_matrix[j][i] = 1;
+                            break;
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
                             Grass grass3 = new Grass(j,i,Sprite.grass.getFxImage());

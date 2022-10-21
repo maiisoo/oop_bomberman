@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.AI.AILow;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Bomber;
 
@@ -24,21 +25,8 @@ public class Oneal extends Enemy {
 
     @Override
     public void update() {
-        if (this.y % 16 == 0 && this.x % 16 == 0) {
-            if (bomberman.getX() < this.x) {
-                //System.out.println(bomberman.getX()+" "+this.getX());
-                Move.left(this);
-            }
-            if (bomberman.getX() > this.x) {
-                Move.right(this);
-            }
-            if (bomberman.getY() > this.y) {
-                Move.down(this);
-            }
-            if (bomberman.getY() < this.y) {
-                Move.up(this);
-            }
-        }
+        AILow ai = new AILow(bomberman, this);
+        ai.nextMove();
     }
 
 }
