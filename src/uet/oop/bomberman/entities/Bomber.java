@@ -16,6 +16,7 @@ import uet.oop.bomberman.BombermanGame.*;
 
 public class Bomber extends AnimatedEntity {
 
+    public static int count_kill = 0;
     public static int speed = 4;
 
     private boolean _moving;
@@ -27,15 +28,14 @@ public class Bomber extends AnimatedEntity {
 
     @Override
     public void update(){
-        if(enemiesExposure()){
-            BombermanGame.isDead = true;
-        }
+        enemiesExposure();
         if(BombermanGame.isDead){
             bomberDead();
         }
     }
 
-    private boolean enemiesExposure(){
+
+    private void enemiesExposure(){
         int ax = BombermanGame.bomberman.getX();
         int ay = BombermanGame.bomberman.getY();
         for (Enemy enemy : BombermanGame.enemies) {
@@ -46,11 +46,11 @@ public class Bomber extends AnimatedEntity {
                             || ay == by && bx - 32 <= ax && bx + 32 >= ax
             )
             {
-                return true;
+                BombermanGame.isDead = true;
             }
         }
-        return false;
     }
+
     public static void setSpeed(int speed) {
         Bomber.speed = speed;
     }
@@ -72,19 +72,19 @@ public class Bomber extends AnimatedEntity {
     }
 
     private void bomberDead(){
-        if(this.deadSwap == 1){
+        if(1 <= this.deadSwap && this.deadSwap <= 4){
             this.setImg(Sprite.player_dead1.getFxImage());
-            this.deadSwap = 2;
+            this.deadSwap++;
         }
-        else if(this.deadSwap == 2){
+        else if(5 <= this.deadSwap && this.deadSwap <= 8){
             this.setImg(Sprite.player_dead2.getFxImage());
-            this.deadSwap = 3;
+            this.deadSwap++;
         }
-        else if(this.deadSwap == 3){
+        else if(9 <= this.deadSwap && this.deadSwap <= 12){
             this.setImg(Sprite.player_dead3.getFxImage());
-            this.deadSwap = 4;
+            this.deadSwap++;
         }
-        else if(this.deadSwap > 3){
+        else if(this.deadSwap > 13){
             this.setImg(null);
         }
     }

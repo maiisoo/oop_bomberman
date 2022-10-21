@@ -10,6 +10,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemy.*;
+import uet.oop.bomberman.entities.StaticEntity.Bomb;
+import uet.oop.bomberman.entities.StaticEntity.Grass;
+import uet.oop.bomberman.entities.StaticEntity.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.control.Move;
 
@@ -38,6 +41,7 @@ public class BombermanGame extends Application {
 
     public static Bomber bomberman;
 
+    public static int[][] list_kill = new int[WIDTH][HEIGHT];
     @Override
     public void start(Stage stage) {
         // Tao Canvas
@@ -52,28 +56,46 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(event -> {
-            boolean momentum = false;
-            boolean switch_direction = true;
-            if (true){
-            switch (event.getCode()) {
-                case UP:
-                    Move.up(bomberman);
-                    break;
-                case DOWN:
-                    Move.down(bomberman);
-                    break;
-                case RIGHT:
-                    Move.right(bomberman);
-                    break;
-                case LEFT:
-                    Move.left(bomberman);
-                    break;
-                case SPACE:
-                    isDead = true;
-                    break;
-            }
+            if (true) {
+                switch (event.getCode()) {
+                    case UP:
+                        Move.up(bomberman);
+                        break;
+                    case DOWN:
+                        Move.down(bomberman);
+                        break;
+                    case RIGHT:
+                        Move.right(bomberman);
+                        break;
+                    case LEFT:
+                        Move.left(bomberman);
+                        break;
+                    case SPACE:
+                        Bomb.placeBomb();
+                        break;
+                }
             }
         });
+
+        /*scene.setOnKeyReleased(event -> {
+            if (true){
+                switch (event.getCode()) {
+                    case UP:
+                        Move.down(bomberman);
+                        break;
+                    case DOWN:
+                        Move.up(bomberman);
+                        break;
+                    case RIGHT:
+                        Move.left(bomberman);
+                        break;
+                    case LEFT:
+                        Move.right(bomberman);
+                        break;
+                }
+            }
+        });*/
+
         createMap();
         // Them scene vao stage
         stage.setScene(scene);
@@ -89,10 +111,6 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap();
-
-        //Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        //entities.add(bomberman);
     }
 
     public void createMap() {
@@ -111,7 +129,7 @@ public class BombermanGame extends Application {
          */
 
         try {
-            bomberman = new Bomber(1,1,Sprite.player_right_2.getFxImage());
+            bomberman = new Bomber(1, 1, Sprite.player_right_2.getFxImage());
             entities.add(bomberman);
             File myObj = new File("res/levels/Level1.txt");
             Scanner myReader = new Scanner(myObj);
@@ -141,27 +159,6 @@ public class BombermanGame extends Application {
                             stillObjects.add(grass2);
                             obj_matrix[j][i] = 1;
                             break;
-                        case '2':
-                            object = new Oneal(j, i, Sprite.oneal_left1.getFxImage());
-                            enemies.add((Oneal) object);
-                            Grass grassUnderOneal = new Grass(j,i,Sprite.grass.getFxImage());
-                            stillObjects.add(grassUnderOneal);
-                            obj_matrix[j][i] = 1;
-                            break;
-                        case '3':
-                            object = new Doll(j, i, Sprite.doll_left1.getFxImage());
-                            enemies.add((Doll) object);
-                            Grass grassUnderDoll = new Grass(j,i,Sprite.grass.getFxImage());
-                            stillObjects.add(grassUnderDoll);
-                            obj_matrix[j][i] = 1;
-                            break;
-                        case '4':
-                            object = new Kondoria(j, i, Sprite.kondoria_left1.getFxImage());
-                            enemies.add((Kondoria) object);
-                            Grass grassUnderKondoria = new Grass(j,i,Sprite.grass.getFxImage());
-                            stillObjects.add(grassUnderKondoria);
-                            obj_matrix[j][i] = 1;
-                            break;
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
                             Grass grass3 = new Grass(j,i,Sprite.grass.getFxImage());
@@ -182,7 +179,6 @@ public class BombermanGame extends Application {
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(object);
                             obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
@@ -197,7 +193,6 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        enemies.forEach(Enemy::update);
         bomberman.update();
         for (Enemy e : enemies) {
             e.setCount_to_run(e.getCount_to_run() + 1);
