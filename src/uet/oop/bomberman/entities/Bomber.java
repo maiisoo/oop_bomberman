@@ -16,7 +16,7 @@ import uet.oop.bomberman.BombermanGame.*;
 public class Bomber extends AnimatedEntity {
 
     public static int count_kill = 0;
-    public static int speed = 4;
+    public static int speed = 1;
 
     private boolean _moving;
 
@@ -86,6 +86,10 @@ public class Bomber extends AnimatedEntity {
         else if(this.deadSwap > 13){
             this.setImg(null);
         }
+    }
+
+    private void checkCollision(){
+
     }
 
     public int getSpeed(){

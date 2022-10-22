@@ -7,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.Item.BombItem;
+import uet.oop.bomberman.Item.FlameItem;
+import uet.oop.bomberman.Item.Item;
+import uet.oop.bomberman.Item.SpeedItem;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.StaticEntity.Bomb;
@@ -36,6 +40,8 @@ public class BombermanGame extends Application {
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
     public static List<Balloom> ballooms = new ArrayList<>();
+
+    public static List<Item> items = new ArrayList<>();
 
     public static Bomber bomberman;
 
@@ -142,10 +148,12 @@ public class BombermanGame extends Application {
                     switch (data.charAt(j)) {
                         case '#':
                             object = new Wall(j, i, Sprite.wall.getFxImage());
+                            stillObjects.add(object);
                             obj_matrix[j][i] = 0;
                             break;
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
+                            stillObjects.add(object);
                             Grass grass1 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass1);
                             obj_matrix[j][i] = 1;
@@ -159,28 +167,31 @@ public class BombermanGame extends Application {
                             break;
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
+                            items.add((BombItem) object);
                             Grass grass3 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass3);
                             obj_matrix[j][i] = 1;
                             break;
                         case 'f':
-                            object = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
+                            object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            items.add((SpeedItem) object);
                             Grass grass4 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass4);
                             obj_matrix[j][i] = 1;
                             break;
                         case 's':
                             object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            items.add((SpeedItem) object);
                             Grass grass5 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass5);
                             obj_matrix[j][i] = 1;
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(object);
                             obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
-                    stillObjects.add(object);
                 }
             }
             myReader.close();
@@ -193,6 +204,7 @@ public class BombermanGame extends Application {
     public void update() {
         bomberman.update();
         ballooms.forEach(Balloom::update);
+        items.forEach(Item::update);
         stillObjects.forEach(Entity::update);
         bomberman.setCount_to_run(bomberman.getCount_to_run() + 1);
         if (bomberman.getCount_to_run() == 4) {
@@ -213,6 +225,7 @@ public class BombermanGame extends Application {
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
         ballooms.forEach(g -> g.render(gc));
+        items.forEach(g -> g.render(gc));
     }
 
     public static void main(String[] args) {

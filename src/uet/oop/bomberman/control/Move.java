@@ -1,26 +1,27 @@
 package uet.oop.bomberman.control;
 
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Enemy.*;
 
+import uet.oop.bomberman.entities.StaticEntity.Bomb;
 import uet.oop.bomberman.graphics.*;
 
 public class Move {
     public static void checkRun(AnimatedEntity animal) {    //Check if all your mob move or not
         if (animal instanceof Bomber && animal.getCount() > 0) {
-            setDirection(animal.getDirection(), animal, 8 * 1);
+            setDirection(animal.getDirection(), animal, 4 * BombermanGame.bomberman.getSpeed());
             animal.setCount(animal.getCount() - 1);
         }
         if ((animal instanceof Balloom)
                 && animal.getCount() > 0) {
-            setDirection(animal.getDirection(), animal, 16);
+            setDirection(animal.getDirection(), animal, 4);
             animal.setCount(animal.getCount() - 1);
         }
     }
 
     private static void setDirection(String direction, AnimatedEntity character, int isMove) {     //Show the direction of all mob
-        isMove = 4;
         switch (direction) {
             case "down":
                 down_step(character);
@@ -45,7 +46,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_down(character)) {
                 if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {//Block???
                     character.setDirection("down");
-                    character.setCount(8 / 1);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
@@ -127,7 +128,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_up(character)) {
                 if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
                     character.setDirection("up");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
@@ -208,7 +209,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_left(character)) {
                 if(character.getX() % 32 == 0 && character.getY() % 32 == 0) {
                     character.setDirection("left");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
@@ -304,7 +305,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_right(character)) {
                 if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
                     character.setDirection("right");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
