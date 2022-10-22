@@ -29,7 +29,8 @@ public class Bomber extends AnimatedEntity {
     @Override
     public void update(){
         enemiesExposure();
-        if(BombermanGame.isDead){
+        count_kill++;
+        if(!this.isAlive){
             bomberDead();
         }
     }
@@ -46,7 +47,8 @@ public class Bomber extends AnimatedEntity {
                             || ay == by && bx - 32 <= ax && bx + 32 >= ax
             )
             {
-                BombermanGame.isDead = true;
+                //BombermanGame.isDead = true;
+                this.setAlive(false);
             }
         }
     }
@@ -84,8 +86,8 @@ public class Bomber extends AnimatedEntity {
             this.setImg(Sprite.player_dead3.getFxImage());
             this.deadSwap++;
         }
-        else if(this.deadSwap > 13){
-            this.setImg(null);
+        else {
+            this.setImg(Sprite.transparent.getFxImage());
         }
     }
 

@@ -6,17 +6,18 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.StaticEntity.Bomb;
 import uet.oop.bomberman.entities.StaticEntity.Grass;
 import uet.oop.bomberman.entities.StaticEntity.Wall;
+import uet.oop.bomberman.entities.items.BombItem;
+import uet.oop.bomberman.entities.items.FlameItem;
+import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.control.Move;
 
-import java.beans.EventHandler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    public static List<Entity> stillObjects = new ArrayList<>();
     public static List<Enemy> enemies = new ArrayList<>();
 
     public static Bomber bomberman;
@@ -56,7 +57,7 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(event -> {
-            if (true) {
+            if (bomberman.isAlive()) {
                 switch (event.getCode()) {
                     case UP:
                         Move.up(bomberman);
@@ -110,6 +111,7 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
+        createMap();
 
     }
 
@@ -155,8 +157,29 @@ public class BombermanGame extends Application {
                         case '1':
                             object = new Balloom(j, i, Sprite.balloom_left1.getFxImage());
                             enemies.add((Balloom) object);
-                            Grass grass2 = new Grass(j,i,Sprite.grass.getFxImage());
-                            stillObjects.add(grass2);
+                            Grass grassUnderBalloom = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderBalloom);
+                            obj_matrix[j][i] = 1;
+                            break;
+                        case '2':
+                            object = new Oneal(j, i, Sprite.oneal_left1.getFxImage());
+                            enemies.add((Oneal) object);
+                            Grass grassUnderOneal = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderOneal);
+                            obj_matrix[j][i] = 1;
+                            break;
+                        case '3':
+                            object = new Doll(j, i, Sprite.doll_left1.getFxImage());
+                            enemies.add((Doll) object);
+                            Grass grassUnderDoll = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderDoll);
+                            obj_matrix[j][i] = 1;
+                            break;
+                        case '4':
+                            object = new Kondoria(j, i, Sprite.kondoria_left1.getFxImage());
+                            enemies.add((Kondoria) object);
+                            Grass grassUnderKondoria = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderKondoria);
                             obj_matrix[j][i] = 1;
                             break;
                         case 'b':
@@ -194,6 +217,12 @@ public class BombermanGame extends Application {
 
     public void update() {
         bomberman.update();
+        stillObjects.forEach(Entity::update);
+        bomberman.setCount_to_run(bomberman.getCount_to_run() + 1);
+        if (bomberman.getCount_to_run() == 4) {
+            Move.checkRun(bomberman);
+            bomberman.setCount_to_run(0);
+        }
         for (Enemy e : enemies) {
             e.setCount_to_run(e.getCount_to_run() + 1);
             if (e.getCount_to_run() == 4) {

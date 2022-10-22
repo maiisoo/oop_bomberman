@@ -11,7 +11,7 @@ import java.util.Random;
 public class Move {
     public static void checkRun(AnimatedEntity character) {    //Check if all your mob move or not
         if (character instanceof Bomber && character.getCount() > 0) {
-            setDirection(character.getDirection(), character, 8);
+            setDirection(character.getDirection(), character, 4);
             character.setCount(character.getCount() - 1);
         }
         if ((character instanceof Balloom || character instanceof Oneal || character instanceof Doll

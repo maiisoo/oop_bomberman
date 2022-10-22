@@ -8,7 +8,7 @@ public abstract class AnimatedEntity extends Entity {
     protected String direction;   // direction of player
     protected int count;          // count step of a jump
     protected int count_to_run;   // run after count frame
-    protected boolean isAlive;       // life of enemy
+    protected boolean isAlive = true;       // life of enemy
 
     public AnimatedEntity(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -22,7 +22,6 @@ public abstract class AnimatedEntity extends Entity {
         this.count = count;
         this.count_to_run = count_to_run;
     }
-
     public int getIs_move() {
         return is_move;
     }
