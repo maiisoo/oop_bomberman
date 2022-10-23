@@ -14,6 +14,7 @@ import uet.oop.bomberman.entities.StaticEntity.Grass;
 import uet.oop.bomberman.entities.StaticEntity.Wall;
 import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
+import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.control.Move;
@@ -38,7 +39,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
-    public static List<Balloom> ballooms = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
 
     public static List<Item> items = new ArrayList<>();
 
