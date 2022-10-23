@@ -36,9 +36,11 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
+    public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
-    public static List<Enemy> enemies = new ArrayList<>();
+    public static List<Balloom> ballooms = new ArrayList<>();
+
+    public static List<Item> items = new ArrayList<>();
 
     public static Bomber bomberman;
 
@@ -139,18 +141,20 @@ public class BombermanGame extends Application {
             int height = myReader.nextInt();
             int width = myReader.nextInt();
             String blank = myReader.nextLine();
-            for(int i = 0; i < height; i++) {
+            for (int i = 0; i < height; i++) {
                 String data = myReader.nextLine();
                 Entity object;
-                for(int j = 0; j < width; j++){
-                    switch(data.charAt(j)) {
+                for (int j = 0; j < width; j++) {
+                    switch (data.charAt(j)) {
                         case '#':
                             object = new Wall(j, i, Sprite.wall.getFxImage());
+                            stillObjects.add(object);
                             obj_matrix[j][i] = 0;
                             break;
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
-                            Grass grass1 = new Grass(j,i,Sprite.grass.getFxImage());
+                            stillObjects.add(object);
+                            Grass grass1 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass1);
                             obj_matrix[j][i] = 1;
                             break;
@@ -184,24 +188,28 @@ public class BombermanGame extends Application {
                             break;
                         case 'b':
                             object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
-                            Grass grass3 = new Grass(j,i,Sprite.grass.getFxImage());
+                            items.add((BombItem) object);
+                            Grass grass3 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass3);
                             obj_matrix[j][i] = 1;
                             break;
                         case 'f':
-                            object = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
-                            Grass grass4 = new Grass(j,i,Sprite.grass.getFxImage());
+                            object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            items.add((SpeedItem) object);
+                            Grass grass4 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass4);
                             obj_matrix[j][i] = 1;
                             break;
                         case 's':
                             object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
-                            Grass grass5 = new Grass(j,i,Sprite.grass.getFxImage());
+                            items.add((SpeedItem) object);
+                            Grass grass5 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass5);
                             obj_matrix[j][i] = 1;
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(object);
                             obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
@@ -217,6 +225,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         bomberman.update();
+        items.forEach(Item::update);
         stillObjects.forEach(Entity::update);
         bomberman.setCount_to_run(bomberman.getCount_to_run() + 1);
         if (bomberman.getCount_to_run() == 4) {

@@ -1,12 +1,12 @@
 package uet.oop.bomberman.control;
 
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Enemy.*;
 
+import uet.oop.bomberman.entities.StaticEntity.Bomb;
 import uet.oop.bomberman.graphics.*;
-
-import java.util.Random;
 
 public class Move {
     public static void checkRun(AnimatedEntity character) {    //Check if all your mob move or not
@@ -38,32 +38,32 @@ public class Move {
         }*/
     }
 
-    private static void setDirection(String direction, AnimatedEntity character, int step) {     //Show the direction of all mob
+    private static void setDirection(String direction, AnimatedEntity character, int isMove) {     //Show the direction of all mob
         switch (direction) {
             case "down":
                 down_step(character);
-                character.setY(character.getY() + step);
+                character.setY(character.getY() + isMove);
                 break;
             case "up":
                 up_step(character);
-                character.setY(character.getY() - step);
+                character.setY(character.getY() - isMove);
                 break;
             case "left":
                 left_step(character);
-                character.setX(character.getX() - step);
+                character.setX(character.getX() - isMove);
                 break;
             case "right":
                 right_step(character);
-                character.setX(character.getX() + step);
+                character.setX(character.getX() + isMove);
                 break;
         }
     }
 
     public static void down(AnimatedEntity character) {        //Control all mob to go down
             if (character instanceof Bomber && Blocked.block_down(character)) {
-                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
+                if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {//Block???
                     character.setDirection("down");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
@@ -145,7 +145,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_up(character)) {
                 if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
                     character.setDirection("up");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
@@ -226,7 +226,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_left(character)) {
                 if(character.getX() % 32 == 0 && character.getY() % 32 == 0) {
                     character.setDirection("left");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
@@ -322,7 +322,7 @@ public class Move {
             if (character instanceof Bomber && Blocked.block_right(character)) {
                 if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
                     character.setDirection("right");
-                    character.setCount(8);
+                    character.setCount(8 / ((Bomber) character).getSpeed());
                     checkRun(character);
                 }
             }
