@@ -1,5 +1,6 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>uet.oop</groupId>
     <artifactId>bomberman</artifactId>
     <version>v0.1</version>
@@ -20,6 +21,11 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
+            <version>15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
             <version>15</version>
         </dependency>
         <dependency>

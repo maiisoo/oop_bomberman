@@ -14,6 +14,8 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import uet.oop.bomberman.BombermanGame.*;
 
+import static uet.oop.bomberman.BombermanGame.list_kill;
+
 public class Bomber extends AnimatedEntity {
 
     public static int count_kill = 0;
@@ -28,6 +30,7 @@ public class Bomber extends AnimatedEntity {
 
     @Override
     public void update(){
+        flameExposure();
         enemiesExposure();
         count_kill++;
         if(!this.isAlive){
@@ -35,6 +38,10 @@ public class Bomber extends AnimatedEntity {
         }
     }
 
+    private void flameExposure(){
+        if (list_kill[BombermanGame.bomberman.getX() / 32][BombermanGame.bomberman.getY() / 32] == 4)
+            BombermanGame.bomberman.setAlive(false);
+    }
 
     private void enemiesExposure(){
         int ax = BombermanGame.bomberman.getX();
