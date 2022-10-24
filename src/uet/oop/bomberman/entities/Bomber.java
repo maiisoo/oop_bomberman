@@ -10,9 +10,13 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Enemy.Balloom;
 import uet.oop.bomberman.entities.Enemy.Enemy;
+import uet.oop.bomberman.entities.StaticEntity.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import uet.oop.bomberman.BombermanGame.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends AnimatedEntity {
 
@@ -22,6 +26,8 @@ public class Bomber extends AnimatedEntity {
     private boolean _moving;
 
     private int deadSwap = 1;
+
+    public static List<Bomb> bombPlanted = new ArrayList<Bomb>();
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
@@ -97,6 +103,10 @@ public class Bomber extends AnimatedEntity {
 
     public int getSpeed(){
         return this.speed;
+    }
+
+    public List<Bomb> getBombs() {
+        return bombPlanted;
     }
 
 }

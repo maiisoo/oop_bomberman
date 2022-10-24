@@ -19,23 +19,6 @@ public class Move {
             setDirection(character.getDirection(), character, 4);
             character.setCount(character.getCount() - 1);
         }
-        /*if ((character instanceof Balloom || character instanceof Doll
-                || character instanceof Kondoria) && character.getCount() > 0) {
-            setDirection(character.getDirection(), character, 4);
-            character.setCount(character.getCount() - 1);
-        }
-        if (character instanceof Oneal && character.getCount() > 0) {
-            Random rand = null;
-            int step = 1;
-            if (character.getY() % 32 == 0 && character.getX() % 32 == 0) {
-                rand = new Random(System.currentTimeMillis());
-                step = rand.nextInt(2) + 1;
-            }
-            //int step = 1;
-            setDirection(character.getDirection(), character, step * 4);
-            System.out.println(step);
-            character.setCount(character.getCount() - 1);
-        }*/
     }
 
     private static void setDirection(String direction, AnimatedEntity character, int isMove) {     //Show the direction of all mob

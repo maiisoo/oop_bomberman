@@ -31,10 +31,9 @@ public class BombermanGame extends Application {
     public static boolean isDead = false;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
-    // 0: occupied by an obj, 1: pass-able (grass)
-
+                                                                // 0: occupied by an obj, 1: pass-able (grass)
+    public static ArrayList<String> map = new ArrayList<>();
     private GraphicsContext gc;
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
@@ -114,7 +113,7 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-        createMap();
+        //createMap();
 
     }
 
@@ -152,6 +151,13 @@ public class BombermanGame extends Application {
                             stillObjects.add(object);
                             obj_matrix[j][i] = 0;
                             break;
+                        /*case '*':
+                            object = new Portal(j, i, Sprite.brick.getFxImage());
+                            stillObjects.add(object);
+                            Grass grassUnderBrick = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(grassUnderBrick);
+                            obj_matrix[j][i] = 1;
+                            break;*/
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
                             stillObjects.add(object);

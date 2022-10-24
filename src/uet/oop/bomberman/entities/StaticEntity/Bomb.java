@@ -4,10 +4,13 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Blocked;
 import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static uet.oop.bomberman.entities.Bomber.bombPlanted;
 
 public class Bomb extends AnimatedEntity {
     private static int swap_active = 1;
@@ -62,6 +65,7 @@ public class Bomb extends AnimatedEntity {
             x = Math.round((float) x);
             y = Math.round((float) y);
             theBomb = new Bomb(x, y, Sprite.bomb.getFxImage());
+            bombPlanted.add((Bomb) theBomb);
             BombermanGame.stillObjects.add(theBomb);
             BombermanGame.obj_matrix[BombermanGame.bomberman.getX() / 32][BombermanGame.bomberman.getY() / 32] = 4;
         }
