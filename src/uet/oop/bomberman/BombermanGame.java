@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
@@ -255,6 +256,16 @@ public class BombermanGame extends Application {
             if (e.getCount_to_run() == 4) {
                 Move.checkRun(e);
                 e.setCount_to_run(0);
+            }
+        }
+        if (enemies.size() == 0) {
+            //Portal portal = new Portal(WIDTH - 2, HEIGHT - 2, Sprite.portal.getFxImage());
+            Portal portal = new Portal(WIDTH-2, HEIGHT-2, Sprite.portal.getFxImage());
+            portal.setOpen(true);
+            stillObjects.add(portal);
+            if (bomberman.getX() == portal.getX() && bomberman.getY() == portal.getY()){
+                Image lvUp = new Image("uploadedImg/LevelUp.png");
+                view.setImage(lvUp);
             }
         }
         //if(!bomberman.isAlive()) mediaPlayer.pause();
