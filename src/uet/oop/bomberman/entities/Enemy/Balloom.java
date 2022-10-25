@@ -3,7 +3,10 @@ package uet.oop.bomberman.entities.Enemy;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.AI.AIRand;
 import uet.oop.bomberman.AI.AISimple;
+import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.graphics.Sprite;
+
+import java.util.Random;
 
 import static uet.oop.bomberman.BombermanGame.*;
 
@@ -40,7 +43,7 @@ public class Balloom extends Enemy {
     }
 
     public void moveBalloom(){
-        /*if (this.y % 16 == 0 && this.x % 16 == 0) {
+        if (this.y % 16 == 0 && this.x % 16 == 0) {
             Random random = new Random();
             int direction = random.nextInt(4);
             switch (direction) {
@@ -57,9 +60,9 @@ public class Balloom extends Enemy {
                     Move.right(this);
                     break;
             }
-        }*/
-        AIRand ai = new AIRand(this);
-        ai.nextMove();
+        }
+        /*AIRand ai = new AIRand(this);
+        ai.nextMove();*/
     }
 
     @Override

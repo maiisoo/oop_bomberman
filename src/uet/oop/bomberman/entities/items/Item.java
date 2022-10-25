@@ -25,9 +25,7 @@ public abstract class Item extends Entity {
     }
 
     public void update(){
-        System.out.println(this.x + ", " + this.y);
         if(checkCollision()){
-            System.out.println("Touched");
             activateImpactOnPlayer();
         }
     }
@@ -35,8 +33,7 @@ public abstract class Item extends Entity {
     private boolean checkCollision(){
         int ax = BombermanGame.bomberman.getX();
         int ay = BombermanGame.bomberman.getY();
-        return (ax == this.y && this.y - 32 <= ay && this.y + 32 >= ay
-                || ay == this.y && this.x - 32 <= ax && this.x + 32 >= ax);
+        return (ax == this.x && ay == this.y);
     }
 
     public abstract void activateImpactOnPlayer();

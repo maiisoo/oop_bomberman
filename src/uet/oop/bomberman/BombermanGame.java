@@ -32,9 +32,13 @@ import java.util.Scanner;
 
 public class BombermanGame extends Application {
 
+
     public static boolean isDead = false;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
+
+    Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
     // 0: occupied by an obj, 1: pass-able (grass)
@@ -52,6 +56,7 @@ public class BombermanGame extends Application {
     public static int[][] list_kill = new int[WIDTH][HEIGHT];
     @Override
     public void start(Stage stage) throws Exception{
+        int bombStock = 20;
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -85,6 +90,8 @@ public class BombermanGame extends Application {
             }
         });
 
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
 
         /*scene.setOnKeyReleased(event -> {
             if (true){
@@ -108,6 +115,7 @@ public class BombermanGame extends Application {
         createMap();
         // Them scene vao stage
         stage.setScene(scene);
+        stage.setTitle("BombermanGame: Tai Duc - Mai Anh                       Bombs remaining:" + bombStock);
         stage.show();
 
 
@@ -204,8 +212,8 @@ public class BombermanGame extends Application {
                             obj_matrix[j][i] = 1;
                             break;
                         case 'f':
-                            SpeedItem speeditem = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
-                            items.add(speeditem);
+                            FlameItem flameItem = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
+                            items.add(flameItem);
                             Grass grass4 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass4);
                             obj_matrix[j][i] = 1;
@@ -248,6 +256,7 @@ public class BombermanGame extends Application {
                 e.setCount_to_run(0);
             }
         }
+        if(!bomberman.isAlive()) mediaPlayer.pause();
     }
 
     public void render() {
