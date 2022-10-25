@@ -4,6 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
@@ -18,6 +20,7 @@ import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.control.Move;
+import uet.oop.bomberman.entities.StaticEntity.Portal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +39,7 @@ public class BombermanGame extends Application {
     public static ArrayList<String> map = new ArrayList<>();
     private GraphicsContext gc;
     private Canvas canvas;
+    public static ImageView view = new ImageView();
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
     public static List<Enemy> enemies = new ArrayList<>();
@@ -54,6 +58,9 @@ public class BombermanGame extends Application {
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
+        root.getChildren().add(view);
+
+        //Tao giao dien
 
         // Tao scene
         Scene scene = new Scene(root);
@@ -244,6 +251,16 @@ public class BombermanGame extends Application {
             if (e.getCount_to_run() == 4) {
                 Move.checkRun(e);
                 e.setCount_to_run(0);
+            }
+        }
+        if (enemies.size() == 0) {
+            //Portal portal = new Portal(WIDTH - 2, HEIGHT - 2, Sprite.portal.getFxImage());
+            Portal portal = new Portal(2, 3, Sprite.portal.getFxImage());
+            portal.setOpen(true);
+            stillObjects.add(portal);
+            if (bomberman.getX() == portal.getX() && bomberman.getY() == portal.getY()){
+                Image lvUp = new Image("uploadedImg/LevelUp.png");
+                view.setImage(lvUp);
             }
         }
     }
