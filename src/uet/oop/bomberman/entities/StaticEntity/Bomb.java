@@ -1,18 +1,24 @@
 package uet.oop.bomberman.entities.StaticEntity;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Blocked;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import static uet.oop.bomberman.entities.Bomber.bombPlanted;
 
 public class Bomb extends AnimatedEntity {
+    private static String boomboom = new String("res/Music/bomb_explosion.mp3");
+
+
     private static int swap_active = 1;
 
     private static long bombAppearTime;
@@ -288,7 +294,7 @@ public class Bomb extends AnimatedEntity {
 
     }
 
-    private static void explosionExecution() {      // Check the bomb's detonation time after the bomb is activated
+    private static void explosionExecution() {   // Check the bomb's detonation time after the bomb is activated
         if (is_bomb == 2) {
             if (System.currentTimeMillis() - bombAppearTime < 1000L) {
                 if (System.currentTimeMillis() - time_tmp > 100L) {
@@ -307,6 +313,9 @@ public class Bomb extends AnimatedEntity {
                 }
             }
             else {
+                Media media = new Media(new File(boomboom).toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
                 is_bomb = 0;
                 BombermanGame.obj_matrix[theBomb.getX() / 32][theBomb.getY() / 32] = 1;
                 BombermanGame.list_kill[theBomb.getX() / 32][theBomb.getY() / 32] = 1;

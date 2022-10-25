@@ -9,9 +9,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaView;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.StaticEntity.Bomb;
+import uet.oop.bomberman.entities.StaticEntity.Brick;
 import uet.oop.bomberman.entities.StaticEntity.Grass;
 import uet.oop.bomberman.entities.StaticEntity.Wall;
 import uet.oop.bomberman.entities.items.BombItem;
@@ -34,6 +38,10 @@ public class BombermanGame extends Application {
     public static boolean isDead = false;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
+
+    Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
+
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
                                                                 // 0: occupied by an obj, 1: pass-able (grass)
     public static ArrayList<String> map = new ArrayList<>();
@@ -50,7 +58,8 @@ public class BombermanGame extends Application {
 
     public static int[][] list_kill = new int[WIDTH][HEIGHT];
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception{
+        int bombStock = 20;
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -87,6 +96,9 @@ public class BombermanGame extends Application {
             }
         });
 
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
+
         /*scene.setOnKeyReleased(event -> {
             if (true){
                 switch (event.getCode()) {
@@ -109,6 +121,7 @@ public class BombermanGame extends Application {
         createMap();
         // Them scene vao stage
         stage.setScene(scene);
+        stage.setTitle("BombermanGame: Tai Duc - Mai Anh                       Bombs remaining:" + bombStock);
         stage.show();
 
 
@@ -120,7 +133,6 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-        //createMap();
 
     }
 
@@ -158,13 +170,11 @@ public class BombermanGame extends Application {
                             stillObjects.add(object);
                             obj_matrix[j][i] = 0;
                             break;
-                        /*case '*':
-                            object = new Portal(j, i, Sprite.brick.getFxImage());
-                            stillObjects.add(object);
-                            Grass grassUnderBrick = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(grassUnderBrick);
-                            obj_matrix[j][i] = 1;
-                            break;*/
+                        case '*':
+                            object = new Brick(j, i, Sprite.brick.getFxImage());
+                               stillObjects.add(object);
+                                obj_matrix[j][i] = 3;
+                            break;
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
                             stillObjects.add(object);
@@ -201,22 +211,22 @@ public class BombermanGame extends Application {
                             obj_matrix[j][i] = 1;
                             break;
                         case 'b':
-                            object = new BombItem(j, i, Sprite.powerup_bombs.getFxImage());
-                            items.add((BombItem) object);
+                            BombItem bombitem = new BombItem(j,i, Sprite.powerup_bombs.getFxImage());
+                            items.add(bombitem);
                             Grass grass3 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass3);
                             obj_matrix[j][i] = 1;
                             break;
                         case 'f':
-                            object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
-                            items.add((SpeedItem) object);
+                            FlameItem flameItem = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
+                            items.add(flameItem);
                             Grass grass4 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass4);
                             obj_matrix[j][i] = 1;
                             break;
                         case 's':
-                            object = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
-                            items.add((SpeedItem) object);
+                            SpeedItem speeditem1 = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
+                            items.add(speeditem1);
                             Grass grass5 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass5);
                             obj_matrix[j][i] = 1;
@@ -227,7 +237,6 @@ public class BombermanGame extends Application {
                             obj_matrix[j][i] = 1; //set value matrix element corresponding to obj grass
                             break;
                     }
-                    stillObjects.add(object);
                 }
             }
             myReader.close();
@@ -239,8 +248,8 @@ public class BombermanGame extends Application {
 
     public void update() {
         bomberman.update();
-        items.forEach(Item::update);
         stillObjects.forEach(Entity::update);
+        items.forEach(Item::update);
         bomberman.setCount_to_run(bomberman.getCount_to_run() + 1);
         if (bomberman.getCount_to_run() == 4) {
             Move.checkRun(bomberman);
@@ -253,22 +262,14 @@ public class BombermanGame extends Application {
                 e.setCount_to_run(0);
             }
         }
-        if (enemies.size() == 0) {
-            //Portal portal = new Portal(WIDTH - 2, HEIGHT - 2, Sprite.portal.getFxImage());
-            Portal portal = new Portal(2, 3, Sprite.portal.getFxImage());
-            portal.setOpen(true);
-            stillObjects.add(portal);
-            if (bomberman.getX() == portal.getX() && bomberman.getY() == portal.getY()){
-                Image lvUp = new Image("uploadedImg/LevelUp.png");
-                view.setImage(lvUp);
-            }
-        }
+        if(!bomberman.isAlive()) mediaPlayer.pause();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
+        items.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
     }
 

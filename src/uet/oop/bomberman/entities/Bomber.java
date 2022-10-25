@@ -6,6 +6,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaView;
+import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Enemy.Balloom;
@@ -15,32 +18,51 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import uet.oop.bomberman.BombermanGame.*;
 
+import java.io.File;
+
+import static uet.oop.bomberman.BombermanGame.list_kill;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends AnimatedEntity {
 
+    private final static String playerDied = new String("res/Music/just_died.mp3");
+
+    private static boolean deadPlayerAudioPlayed = false;
     public static int count_kill = 0;
     public static int speed = 1;
 
+    Media media = new Media(new File(playerDied).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
     private boolean _moving;
 
     private int deadSwap = 1;
 
     public static List<Bomb> bombPlanted = new ArrayList<Bomb>();
+
     public Bomber(int x, int y, Image img) {
         super( x, y, img);
     }
 
     @Override
     public void update(){
+        flameExposure();
         enemiesExposure();
         count_kill++;
         if(!this.isAlive){
+            if(!deadPlayerAudioPlayed){
+                mediaPlayer.play();
+                deadPlayerAudioPlayed = true;
+            }
             bomberDead();
         }
     }
 
+    private void flameExposure(){
+        if (list_kill[BombermanGame.bomberman.getX() / 32][BombermanGame.bomberman.getY() / 32] == 4)
+            BombermanGame.bomberman.setAlive(false);
+    }
 
     private void enemiesExposure(){
         int ax = BombermanGame.bomberman.getX();
@@ -95,10 +117,6 @@ public class Bomber extends AnimatedEntity {
         else {
             this.setImg(Sprite.transparent.getFxImage());
         }
-    }
-
-    private void checkCollision(){
-
     }
 
     public int getSpeed(){
