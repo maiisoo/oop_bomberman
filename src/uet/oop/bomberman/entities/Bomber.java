@@ -6,9 +6,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaView;
-import javafx.scene.media.MediaPlayer;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaView;
+//import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Enemy.Balloom;
@@ -33,8 +33,8 @@ public class Bomber extends AnimatedEntity {
     public static int count_kill = 0;
     public static int speed = 1;
 
-    Media media = new Media(new File(playerDied).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    //Media media = new Media(new File(playerDied).toURI().toString());
+    //MediaPlayer mediaPlayer = new MediaPlayer(media);
     private boolean _moving;
 
     private int deadSwap = 1;
@@ -52,7 +52,7 @@ public class Bomber extends AnimatedEntity {
         count_kill++;
         if(!this.isAlive){
             if(!deadPlayerAudioPlayed){
-                mediaPlayer.play();
+                //mediaPlayer.play();
                 deadPlayerAudioPlayed = true;
             }
             bomberDead();

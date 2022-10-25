@@ -3,10 +3,11 @@ package uet.oop.bomberman.control;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Enemy.*;
-
-import uet.oop.bomberman.entities.StaticEntity.Bomb;
-import uet.oop.bomberman.graphics.*;
+import uet.oop.bomberman.entities.Enemy.Balloom;
+import uet.oop.bomberman.entities.Enemy.Doll;
+import uet.oop.bomberman.entities.Enemy.Kondoria;
+import uet.oop.bomberman.entities.Enemy.Oneal;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class Move {
     public static void checkRun(AnimatedEntity character) {    //Check if all your mob move or not

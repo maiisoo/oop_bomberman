@@ -4,27 +4,22 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaView;
-import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.control.Move;
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Enemy.*;
-import uet.oop.bomberman.entities.StaticEntity.Bomb;
-import uet.oop.bomberman.entities.StaticEntity.Brick;
-import uet.oop.bomberman.entities.StaticEntity.Grass;
-import uet.oop.bomberman.entities.StaticEntity.Wall;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.StaticEntity.*;
 import uet.oop.bomberman.entities.items.BombItem;
 import uet.oop.bomberman.entities.items.FlameItem;
 import uet.oop.bomberman.entities.items.Item;
 import uet.oop.bomberman.entities.items.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.control.Move;
-import uet.oop.bomberman.entities.StaticEntity.Portal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,8 +34,8 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
-    Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    //Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
+    //MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
                                                                 // 0: occupied by an obj, 1: pass-able (grass)
@@ -96,8 +91,8 @@ public class BombermanGame extends Application {
             }
         });
 
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        //mediaPlayer.play();
 
         /*scene.setOnKeyReleased(event -> {
             if (true){
@@ -262,7 +257,7 @@ public class BombermanGame extends Application {
                 e.setCount_to_run(0);
             }
         }
-        if(!bomberman.isAlive()) mediaPlayer.pause();
+        //if(!bomberman.isAlive()) mediaPlayer.pause();
     }
 
     public void render() {
