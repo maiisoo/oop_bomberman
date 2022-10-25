@@ -254,8 +254,9 @@ public class AIBFS extends AI{
                 p_end = parent[p_end];
                 shortestPath.add(p_end);
             }
+            System.out.print("Duong di: ");
             for ( int i =0 ; i < shortestPath.size() ; i++ ){
-                System.out.print("Duong di: "+shortestPath.get(i)+ " ");
+                System.out.print(shortestPath.get(i)+ " ");
             }
             return shortestPath.get(shortestPath.size()-2);
         }
@@ -267,27 +268,25 @@ public class AIBFS extends AI{
         this.convertToMatrix();
         this.updateMatrix();
         this.convertToNodeMatrix();
-        System.out.println("enemy:"+ enemy.getY()/32+" "+enemy.getX()/32+" bomber:"+ bomber.getY()+" "+bomber.getX());
+        System.out.println("enemy:"+ enemy.getY()/32+" "+enemy.getX()/32+" bomber:"+ bomber.getY()/32+" "+bomber.getX()/32);
 
-        /*for (int i = 0; i< h; i++){
+        for (int i = 0; i< h; i++){
             for (int j = 0; j< w; j++){
-                System.out.print(nodeMatrix[i][j]+" ");
+                System.out.print(nodeMatrix[i][j]+"\t\t");
             }
-            System.out.println();
-        }*/
+            System.out.print("\n");
+        }
 
         //System.out.println(nodeMatrix[3][22]);
         //System.out.println("Node cua bomber: "+nodeMatrix[this.bomber.getY()/32][this.bomber.getX()/32]);
         //int start = nodeMatrix[this.enemy.getY()/32][this.enemy.getX()/32];
-        int ex = this.enemy.getY()/32;
-        int ey = this.enemy.getY()/32;
-        int start = nodeMatrix[ex][ey];
+        int start = nodeMatrix[this.enemy.getY()/32][this.enemy.getY()/32];
         int end = nodeMatrix[this.bomber.getY()/32][this.bomber.getX()/32];
-        //System.out.println(start);
+        //System.out.println(start+" "+end);
         int result = this.nextDirection(start, end);
         //System.out.println("dg di:");
-        //System.out.println(result);
-        System.out.println(start+" "+result);
+        System.out.println("\nStart:"+start+" End: "+end+" Result: "+result);
+        //System.out.println(start+" "+result);
         if (result - start == 1) Move.right(enemy);
         if (start - result == 1) Move.left(enemy);
         if (start > result) Move.up(enemy);

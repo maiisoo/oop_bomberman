@@ -9,4 +9,7 @@ public class Portal extends Entity{
         super(x,y,img);
     }
     public void update(){}
+
+    public void getOpen(boolean b) {
+    }
 }
