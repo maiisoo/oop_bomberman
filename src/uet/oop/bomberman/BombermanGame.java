@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.control.Move;
 import uet.oop.bomberman.entities.Bomber;
@@ -30,13 +33,14 @@ import java.util.Scanner;
 
 
 public class BombermanGame extends Application {
+    public static int bombStock = 20;
 
     public static boolean isDead = false;
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
-    //Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
-    //MediaPlayer mediaPlayer = new MediaPlayer(media);
+    Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
                                                                 // 0: occupied by an obj, 1: pass-able (grass)
@@ -55,7 +59,6 @@ public class BombermanGame extends Application {
     public static int[][] list_kill = new int[WIDTH][HEIGHT];
     @Override
     public void start(Stage stage) throws Exception{
-        int bombStock = 20;
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -64,7 +67,12 @@ public class BombermanGame extends Application {
         Group root = new Group();
         root.getChildren().add(canvas);
         root.getChildren().add(view);
-
+        //Tao bao so luong bomb
+        Text text = new Text();
+        text.setText("Bombs remaining: " + bombStock);
+        text.setX(20);
+        text.setY(25);
+        root.getChildren().add(text);
         //Tao giao dien
 
         // Tao scene
@@ -92,8 +100,8 @@ public class BombermanGame extends Application {
             }
         });
 
-        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        //mediaPlayer.play();
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
 
         /*scene.setOnKeyReleased(event -> {
             if (true){
@@ -124,6 +132,7 @@ public class BombermanGame extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                text.setText("Bombs remaining: " + bombStock);
                 render();
                 update();
             }
@@ -246,6 +255,7 @@ public class BombermanGame extends Application {
         bomberman.update();
         stillObjects.forEach(Entity::update);
         items.forEach(Item::update);
+        enemies.forEach(Enemy::update);
         bomberman.setCount_to_run(bomberman.getCount_to_run() + 1);
         if (bomberman.getCount_to_run() == 4) {
             Move.checkRun(bomberman);
@@ -268,7 +278,7 @@ public class BombermanGame extends Application {
                 view.setImage(lvUp);
             }
         }
-        //if(!bomberman.isAlive()) mediaPlayer.pause();
+        if(!bomberman.isAlive()) mediaPlayer.pause();
     }
 
     public void render() {

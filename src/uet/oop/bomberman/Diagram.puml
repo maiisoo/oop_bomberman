@@ -1,0 +1,210 @@
+@startuml
+
+class AnimatedEntity{
+    # int is_move
+    # int swap;
+    # String direction;
+    # int count;
+    # int count_to_run;
+    # boolean isAlive = true;
+
+    + AnimatedEntity(int xUnit, int yUnit, Image img)
+    + AnimatedEntity(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    + int getIs_move()
+    + int getSwap()
+    + String getDirection()
+    + int getCount()
+    + int getCount_to_run()
+    + boolean isAlive()
+    + void setIs_move(int is_move)
+    + void setSwap(int swap)
+    + void setDirection(String direction)
+    + void setCount
+    + void setCount_to_run(int count_to_run)
+    + void setAlive(boolean alive)
+    + void update()
+}
+
+abstract class Entity{
+    # int x
+    # int y
+    # Image img
+
+    + Entity( int xUnit, int yUnit, Image img)
+    + public void setX(int x)
+    + public void setY(int y)
+    + public void setImg(Image img)
+    + public int getX()
+    + public int getY()
+    + public void render(GraphicsContext gc)
+    + abstract void update()
+}
+
+class Bomb{
+    - static final String boomSound
+    - static int swap_active = 1
+    - static long bombAppearTime
+    - static long time_tmp
+    - static AnimatedEntity theBomb
+    - static final List<AnimatedEntity> list_bomb_middle_width
+    - static final List<AnimatedEntity> list_bomb_middle_height
+    + static int bomb_range = 0
+    - static int power_bomb_down = 0
+    - static int power_bomb_up = 0
+    - static int power_bomb_left = 0
+    - static int power_bomb_right = 0
+    - static AnimatedEntity edge_down = null
+    - static AnimatedEntity edge_up = null
+    - static AnimatedEntity edge_left = null
+    - static AnimatedEntity edge_right = null
+    - static boolean is_edge = false
+    - static boolean is_middle = false
+    - static int is_bomb = 0
+    + Bomb(int x, int y, Image img)
+    + static void placeBomb()
+    - static void bombStillNotExplode()
+    + static void movementConfining()
+    - static void explodeAtMiddle()
+    - static void explosionCenter()
+    - static void checkActive()
+    - static void explosionExecution()
+    + void update()
+}
+
+
+class Brick{
+    + Brick(int x, int y, Image img)
+    + void update()
+    + boolean gotBlasted()
+}
+
+class Grass{
+    + Grass(int x, int y, Image img)
+    + void update()
+}
+
+class Portal{
+    - boolean isOpen
+    + void setOpen(boolean open)
+    + void update()
+}
+
+class Wall{
+    + Wall(int x, int y, Image img)
+    + void update()
+}
+
+abstract class Enemy{
+    + Enemy(int xUnit, int yUnit, Image img)
+    + Enemy(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    # void killed()
+}
+
+class Balloom{
+    - static int swap_kill = 1
+    - static int count_kill = 0
+    + Balloom(int xUnit, int yUnit, Image img)
+    + Balloom(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killBalloom(Enemy enemy)
+    + void moveBalloom()
+    + void update()
+}
+
+class Oneal{
+    - static int swap_kill = 1
+    - static int count_kill = 0
+    + Oneal(int xUnit, int yUnit, Image img)
+    + Oneal(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killOneal(Enemy enemy)
+    - void moveOneal()
+    + void update()
+}
+
+class Kondoria{
+    - static int swap_kill = 1
+    - static int count_kill = 0
+    + Kondoria(int xUnit, int yUnit, Image img)
+    + Kondoria(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killKondoria(Enemy enemy)
+    + void update()
+}
+
+abstract class Item{
+    - boolean gotEaten = false
+    + Item(int xUnit, int yUnit, Image img)
+    + Item(int xUnit, int yUnit, Image img, boolean gotEaten)
+    + boolean isGotEaten()
+    + void setGotEaten(boolean gotEaten)
+    - boolean checkCollision()
+    + void update()
+    + abstract void activateImpactOnPlayer()
+}
+
+class FlameItem{
+    + FlameItem(int x, int y, Image img)
+    + FlameItem(int x, int y, Image img, boolean gotEaten)
+    + void activateImpactOnPlayer()
+}
+
+class BombItem{
+    + BombItem(int x, int y, Image img)
+    + void activateImpactOnPlayer()
+}
+
+class SpeedItem{
+    + SpeedItem(int x, int y, Image img)
+    + SpeedItem(int x, int y, Image img, boolean gotEaten)
+    + void activateImpactOnPlayer()
+}
+
+class Blocked{
+    + static boolean block_down(Entity entity)
+    + static boolean block_up(Entity entity)
+    + static boolean block_left(Entity entity)
+    + static boolean block_right(Entity entity)
+    + static boolean block_down_bomb(Entity entity, int power)
+    + static boolean block_up_bomb(Entity entity, int power)
+    + static boolean block_left_bomb(Entity entity, int power)
+    + static boolean block_right_bomb(Entity entity, int power)
+}
+
+class Move{
+    + static void checkRun(AnimatedEntity character)
+    - static void setDirection(String direction, AnimatedEntity character, int isMove)
+    + static void down(AnimatedEntity character)
+    + static void down_step(AnimatedEntity character)
+    + static void up(AnimatedEntity character)
+    + static void up_step(AnimatedEntity character)
+    + static void left(AnimatedEntity character)
+    + static void left_step(AnimatedEntity character)
+    + static void right(rtAnimatedEntity character)
+    + static void right_step(AnimatedEntity character)
+}
+
+class Bomber{
+    - final static String playerDied
+    - static boolean deadPlayerAudioPlayed = false
+    + static int count_kill = 0
+    + static int speed = 1
+    - boolean _moving
+
+}
+
+AnimatedEntity --> Entity
+Bomb --> Entity
+Brick --> Entity
+Grass --> Entity
+Portal --> Entity
+Wall --> Entity
+Enemy --> AnimatedEntity
+Bomber --> AnimatedEntity
+Balloom --> Enemy
+Oneal --> Enemy
+Kondoria --> Enemy
+Item --> Entity
+FlameItem --> Item
+BombItem --> Item
+SpeedItem --> Item
+
+
+@enduml

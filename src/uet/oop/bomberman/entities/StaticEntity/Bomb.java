@@ -3,6 +3,8 @@ package uet.oop.bomberman.entities.StaticEntity;
 import javafx.scene.image.Image;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Blocked;
 import uet.oop.bomberman.entities.AnimatedEntity;
@@ -16,7 +18,6 @@ import static uet.oop.bomberman.entities.Bomber.bombPlanted;
 
 public class Bomb extends AnimatedEntity {
     private static final String boomboom = new String("res/Music/bomb_explosion.mp3");
-
 
     private static int swap_active = 1;
 
@@ -63,6 +64,7 @@ public class Bomb extends AnimatedEntity {
     public static void placeBomb() {
         if(is_bomb == 0) {
             is_bomb = 1;
+            BombermanGame.bombStock--;
             bombAppearTime = System.currentTimeMillis();
             time_tmp = bombAppearTime;
             int x = BombermanGame.bomberman.getX() / 32;
@@ -312,9 +314,6 @@ public class Bomb extends AnimatedEntity {
                 }
             }
             else {
-                //Media media = new Media(new File(boomboom).toURI().toString());
-                //MediaPlayer mediaPlayer = new MediaPlayer(media);
-                //mediaPlayer.play();
                 is_bomb = 0;
                 BombermanGame.obj_matrix[theBomb.getX() / 32][theBomb.getY() / 32] = 1;
                 BombermanGame.list_kill[theBomb.getX() / 32][theBomb.getY() / 32] = 1;
@@ -353,7 +352,9 @@ public class Bomb extends AnimatedEntity {
                         BombermanGame.obj_matrix[e.getX() / 32][e.getY() / 32] = 1;
                     }
                 }
-
+                Media media = new Media(new File(boomboom).toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
                 BombermanGame.stillObjects.removeAll(list_bomb_middle_height);
                 BombermanGame.stillObjects.removeAll(list_bomb_middle_width);
                 list_bomb_middle_height.clear();

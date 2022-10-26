@@ -270,12 +270,6 @@ public class AIBFS extends AI{
         this.convertToNodeMatrix();
         System.out.println("enemy:"+ enemy.getY()/32+" "+enemy.getX()/32+" bomber:"+ bomber.getY()/32+" "+bomber.getX()/32);
 
-        for (int i = 0; i< h; i++){
-            for (int j = 0; j< w; j++){
-                System.out.print(nodeMatrix[i][j]+"\t\t");
-            }
-            System.out.print("\n");
-        }
 
         //System.out.println(nodeMatrix[3][22]);
         //System.out.println("Node cua bomber: "+nodeMatrix[this.bomber.getY()/32][this.bomber.getX()/32]);
@@ -285,7 +279,6 @@ public class AIBFS extends AI{
         //System.out.println(start+" "+end);
         int result = this.nextDirection(start, end);
         //System.out.println("dg di:");
-        System.out.println("\nStart:"+start+" End: "+end+" Result: "+result);
         //System.out.println(start+" "+result);
         if (result - start == 1) Move.right(enemy);
         if (start - result == 1) Move.left(enemy);

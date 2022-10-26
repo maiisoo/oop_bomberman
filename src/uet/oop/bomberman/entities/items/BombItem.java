@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.items;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 
 public class BombItem extends Item {
     public BombItem(int x, int y, Image img){
@@ -8,15 +9,12 @@ public class BombItem extends Item {
     }
 
     @Override
-    public void update() {}
-
-    @Override
     public void activateImpactOnPlayer() {
-        /*if(!this.isGotEaten()) {
-            Bomb.bomb_range++;
+        if(!this.isGotEaten()) {
+            BombermanGame.bombStock++;
             this.setImg(null);
             BombermanGame.items.remove(this);
             this.setGotEaten(true);
-        }*/
+        }
     }
 }
