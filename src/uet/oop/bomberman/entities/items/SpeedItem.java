@@ -12,6 +12,8 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.StaticEntity.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.bomberman;
+
 public class SpeedItem extends Item {
     public SpeedItem(int x, int y, Image img){
         super(x,y,img);
@@ -23,9 +25,10 @@ public class SpeedItem extends Item {
 
     public void activateImpactOnPlayer(){
         if(!this.isGotEaten()){
-            BombermanGame.bomberman.speed++;
+            bomberman.speed++;
             this.setImg(Sprite.grass.getFxImage());
             this.setGotEaten(true);
+            bomberman.setSpeed(2);
             BombermanGame.items.remove(this);
         }
     }

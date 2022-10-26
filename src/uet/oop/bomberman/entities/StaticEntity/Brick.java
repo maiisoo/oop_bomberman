@@ -9,7 +9,11 @@ import java.util.ArrayList;
 
 import static uet.oop.bomberman.BombermanGame.*;
 public class Brick extends Entity {
-    public Brick(int x, int y, Image img) {super(x,y,img);}
+    public Brick(int x, int y, Image img) {
+        super(x,y,img);
+    }
+
+    public static ArrayList<Brick> brokenBrick = new ArrayList<>();
 
     public static ArrayList<Brick> brokenBrick = new ArrayList<>();
     public void update(){
@@ -20,6 +24,8 @@ public class Brick extends Entity {
     }
 
     public boolean gotBlasted(){
-        return(list_kill[this.x/32][this.y/32] == 4);
+        boolean isBlasted = (list_kill[this.x/32][this.y/32] == 4);
+        if (isBlasted) brokenBrick.add(this);
+        return(isBlasted);
     }
 }

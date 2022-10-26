@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.control.Move;
@@ -39,8 +39,8 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
-    Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    //Media media = new Media(new File("res/Music/title_screen.mp3").toURI().toString());
+    //MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     public static int[][] obj_matrix = new int[WIDTH][HEIGHT];  // A binary matrix of map
                                                                 // 0: occupied by an obj, 1: pass-able (grass)
@@ -100,8 +100,8 @@ public class BombermanGame extends Application {
             }
         });
 
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+        //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        //mediaPlayer.play();
 
         /*scene.setOnKeyReleased(event -> {
             if (true){
@@ -277,7 +277,7 @@ public class BombermanGame extends Application {
                 view.setImage(lvUp);
             }
         }
-        if(!bomberman.isAlive()) mediaPlayer.pause();
+        //if(!bomberman.isAlive()) mediaPlayer.pause();
     }
 
     public void render() {

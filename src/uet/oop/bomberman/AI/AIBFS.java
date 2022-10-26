@@ -1,10 +1,9 @@
 package uet.oop.bomberman.AI;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
+
+import uet.oop.bomberman.entities.StaticEntity.Brick;
 import uet.oop.bomberman.utility.readMapFromFile;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Move;
@@ -96,8 +95,6 @@ public class AIBFS extends AI{
                     vertex++;
                 }
         }
-
-        //System.out.println(nodeMatrix[1][10]);
     }
 
     /**
@@ -150,7 +147,17 @@ public class AIBFS extends AI{
     }
 
     public void updateDestroy_Brick(){
-        //https://github.com/17021084/BomberMan_Base_NES/blob/master/src/uet/oop/bomberman/entities/character/enemy/ai/AIAdvance.java
+        if ( Brick.brokenBrick.isEmpty() ) return;
+        for ( int i = 0 ;i < Brick.brokenBrick.size();i++ ){
+            int brickX = Brick.brokenBrick.get(i).getX()/32;
+            int brickY = Brick.brokenBrick.get(i).getY()/32;
+            // kiểm tra bị phá chưa
+            if ( nodeMatrix[brickX][brickY] < 0 ){
+                //  nếu chưa phá ( tức đang âm ) thì cho nó  dương ( tức phá rồi)
+                nodeMatrix[brickX][brickY] =  nodeMatrix[brickX][brickY]*(-1);
+            }
+
+        }
     }
 
     public void updateMatrix() {
@@ -254,10 +261,12 @@ public class AIBFS extends AI{
                 p_end = parent[p_end];
                 shortestPath.add(p_end);
             }
-            System.out.print("Duong di: ");
+            System.out.print("\nDuong di: ");
             for ( int i =0 ; i < shortestPath.size() ; i++ ){
                 System.out.print(shortestPath.get(i)+ " ");
             }
+            System.out.print("\n");
+
             return shortestPath.get(shortestPath.size()-2);
         }
         return -1;
@@ -266,20 +275,24 @@ public class AIBFS extends AI{
     @Override
     public void nextMove(){
         this.convertToMatrix();
-        this.updateMatrix();
+        //this.updateDestroy_Brick();
+        //this.updateMatrix();
         this.convertToNodeMatrix();
-        System.out.println("enemy:"+ enemy.getY()/32+" "+enemy.getX()/32+" bomber:"+ bomber.getY()/32+" "+bomber.getX()/32);
+        // In ma tran nodeMatrix để debug
+        /*for (int i = 0; i< h; i++){
+            for (int j = 0; j< w; j++){
+                System.out.print(nodeMatrix[i][j]+"\t\t");
+            }
+            System.out.print("\n");
+        }*/
 
-
-        //System.out.println(nodeMatrix[3][22]);
-        //System.out.println("Node cua bomber: "+nodeMatrix[this.bomber.getY()/32][this.bomber.getX()/32]);
-        //int start = nodeMatrix[this.enemy.getY()/32][this.enemy.getX()/32];
+        //System.out.println("enemy:"+ enemy.getY()/32+" "+enemy.getX()/32+" bomber:"+ bomber.getY()/32+" "+bomber.getX()/32);
         int start = nodeMatrix[this.enemy.getY()/32][this.enemy.getY()/32];
         int end = nodeMatrix[this.bomber.getY()/32][this.bomber.getX()/32];
-        //System.out.println(start+" "+end);
+        System.out.println("\nenemy: "+this.enemy.getY()/32+" "+this.enemy.getY()/32+" "+start);
+        //System.out.println("enemy: "+start+" bomber:"+end);
         int result = this.nextDirection(start, end);
-        //System.out.println("dg di:");
-        //System.out.println(start+" "+result);
+        //System.out.println(result);
         if (result - start == 1) Move.right(enemy);
         if (start - result == 1) Move.left(enemy);
         if (start > result) Move.up(enemy);

@@ -3,8 +3,6 @@ package uet.oop.bomberman.entities.StaticEntity;
 import javafx.scene.image.Image;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Blocked;
 import uet.oop.bomberman.entities.AnimatedEntity;
@@ -108,7 +106,7 @@ public class Bomb extends AnimatedEntity {
                 }
             }
 
-            BombermanGame.entities.add(edge_down);
+            BombermanGame.stillObjects.add(edge_down);
         }
 
         if (Blocked.block_up_bomb(theBomb, 0)) {
@@ -149,7 +147,7 @@ public class Bomb extends AnimatedEntity {
     }
 
     public static void explodeAtMiddle(){
-        AnimatedEntity boogieMid; //A ghost AnimatedEntity to work independently from the entities lists throughout the updates
+        AnimatedEntity boogieMid; //A ghost AnimatedEntity to work independently from the stillObjects lists throughout the updates
 
         int i; //To serve for the loops
 
@@ -352,11 +350,11 @@ public class Bomb extends AnimatedEntity {
                         BombermanGame.obj_matrix[e.getX() / 32][e.getY() / 32] = 1;
                     }
                 }
-                Media media = new Media(new File(boomboom).toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.play();
-                BombermanGame.entities.removeAll(list_bomb_middle_height);
-                BombermanGame.entities.removeAll(list_bomb_middle_width);
+                //Media media = new Media(new File(boomboom).toURI().toString());
+                //MediaPlayer mediaPlayer = new MediaPlayer(media);
+                //mediaPlayer.play();
+                BombermanGame.stillObjects.removeAll(list_bomb_middle_height);
+                BombermanGame.stillObjects.removeAll(list_bomb_middle_width);
                 list_bomb_middle_height.clear();
                 list_bomb_middle_width.clear();
                 is_edge = false;

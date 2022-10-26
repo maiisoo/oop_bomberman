@@ -5,8 +5,6 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaView;
@@ -35,8 +33,8 @@ public class Bomber extends AnimatedEntity {
     public static int count_kill = 0;
     public static int speed = 1;
 
-    private static Media media = new Media(new File(playerDied).toURI().toString());
-    private static MediaPlayer mediaPlayer = new MediaPlayer(media);
+    //private static Media media = new Media(new File(playerDied).toURI().toString());
+    //private static MediaPlayer mediaPlayer = new MediaPlayer(media);
     private boolean _moving;
 
     private int deadSwap = 1;
@@ -54,7 +52,7 @@ public class Bomber extends AnimatedEntity {
         count_kill++;
         if(!this.isAlive){
             if(!deadPlayerAudioPlayed){
-                mediaPlayer.play();
+                //mediaPlayer.play();
                 deadPlayerAudioPlayed = true;
             }
             bomberDead();
@@ -83,7 +81,7 @@ public class Bomber extends AnimatedEntity {
         }
     }
 
-    public static void setSpeed(int speed) {
+    public void setSpeed(int speed) {
         Bomber.speed = speed;
     }
 
