@@ -29,5 +29,9 @@ public class SpeedItem extends Item {
             BombermanGame.items.remove(this);
         }
     }
+
+    void changePic(){
+        this.setImg(Sprite.powerup_speed.getFxImage());
+    }
 }
 

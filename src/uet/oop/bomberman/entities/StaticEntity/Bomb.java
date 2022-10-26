@@ -108,7 +108,7 @@ public class Bomb extends AnimatedEntity {
                 }
             }
 
-            BombermanGame.stillObjects.add(edge_down);
+            BombermanGame.entities.add(edge_down);
         }
 
         if (Blocked.block_up_bomb(theBomb, 0)) {
@@ -120,7 +120,7 @@ public class Bomb extends AnimatedEntity {
                 }
             }
 
-            BombermanGame.stillObjects.add(edge_up);
+            BombermanGame.entities.add(edge_up);
         }
 
         if (Blocked.block_left_bomb(theBomb, 0)) {
@@ -132,7 +132,7 @@ public class Bomb extends AnimatedEntity {
                 }
             }
 
-            BombermanGame.stillObjects.add(edge_left);
+            BombermanGame.entities.add(edge_left);
         }
 
         if (Blocked.block_right_bomb(theBomb, 0)) {
@@ -144,12 +144,12 @@ public class Bomb extends AnimatedEntity {
                 }
             }
 
-            BombermanGame.stillObjects.add(edge_right);
+            BombermanGame.entities.add(edge_right);
         }
     }
 
     public static void explodeAtMiddle(){
-        AnimatedEntity boogieMid; //A ghost AnimatedEntity to work independently from the stillObjects lists throughout the updates
+        AnimatedEntity boogieMid; //A ghost AnimatedEntity to work independently from the entities lists throughout the updates
 
         int i; //To serve for the loops
 
@@ -173,8 +173,8 @@ public class Bomb extends AnimatedEntity {
             list_bomb_middle_width.add(boogieMid);
         }
 
-        BombermanGame.stillObjects.addAll(list_bomb_middle_width);
-        BombermanGame.stillObjects.addAll(list_bomb_middle_height);
+        BombermanGame.entities.addAll(list_bomb_middle_width);
+        BombermanGame.entities.addAll(list_bomb_middle_height);
     }
 
     public static void explosionCenter() {      // Determine the explosion center of the bomb
@@ -355,8 +355,8 @@ public class Bomb extends AnimatedEntity {
                 Media media = new Media(new File(boomboom).toURI().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.play();
-                BombermanGame.stillObjects.removeAll(list_bomb_middle_height);
-                BombermanGame.stillObjects.removeAll(list_bomb_middle_width);
+                BombermanGame.entities.removeAll(list_bomb_middle_height);
+                BombermanGame.entities.removeAll(list_bomb_middle_width);
                 list_bomb_middle_height.clear();
                 list_bomb_middle_width.clear();
                 is_edge = false;

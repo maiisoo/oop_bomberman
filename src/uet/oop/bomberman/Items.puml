@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class Item{
+    - boolean gotEaten = false
+    + Item(int xUnit, int yUnit, Image img)
+    + Item(int xUnit, int yUnit, Image img, boolean gotEaten)
+    + boolean isGotEaten()
+    + void setGotEaten(boolean gotEaten)
+    - boolean checkCollision()
+    + void update()
+    + abstract void activateImpactOnPlayer()
+}
+
+class FlameItem{
+    + FlameItem(int x, int y, Image img)
+    + FlameItem(int x, int y, Image img, boolean gotEaten)
+    + void activateImpactOnPlayer()
+}
+
+class BombItem{
+    + BombItem(int x, int y, Image img)
+    + void activateImpactOnPlayer()
+}
+
+class SpeedItem{
+    + SpeedItem(int x, int y, Image img)
+    + SpeedItem(int x, int y, Image img, boolean gotEaten)
+    + void activateImpactOnPlayer()
+}
+
+FlameItem --> Item
+BombItem --> Item
+SpeedItem --> Item
+@enduml

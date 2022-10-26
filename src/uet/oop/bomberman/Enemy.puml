@@ -1,0 +1,36 @@
+@startuml
+abstract class Enemy{
+    + Enemy(int xUnit, int yUnit, Image img)
+    + Enemy(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    # void killed()
+}
+class Balloom{
+    - static int swap_kill = 1
+    - static int count_kill = 0
+    + Balloom(int xUnit, int yUnit, Image img)
+    + Balloom(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killBalloom(Enemy enemy)
+    + void moveBalloom()
+    + void update()
+}
+class Oneal{
+    - static int swap_kill = 1
+    - static int count_kill = 0
+    + Oneal(int xUnit, int yUnit, Image img)
+    + Oneal(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killOneal(Enemy enemy)
+    - void moveOneal()
+    + void update()
+}
+class Kondoria{
+    - static int swap_kill = 1
+    - static int count_kill = 0
+    + Kondoria(int xUnit, int yUnit, Image img)
+    + Kondoria(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killKondoria(Enemy enemy)
+    + void update()
+}
+Balloom --> Enemy
+Oneal --> Enemy
+Kondoria --> Enemy
+@enduml

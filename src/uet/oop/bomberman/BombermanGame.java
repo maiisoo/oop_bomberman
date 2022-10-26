@@ -177,8 +177,8 @@ public class BombermanGame extends Application {
                             break;
                         case '*':
                             object = new Brick(j, i, Sprite.brick.getFxImage());
-                               stillObjects.add(object);
-                                obj_matrix[j][i] = 3;
+                            stillObjects.add(object);
+                            obj_matrix[j][i] = 3;
                             break;
                         case 'x':
                             object = new Portal(j, i, Sprite.portal.getFxImage());
@@ -218,20 +218,20 @@ public class BombermanGame extends Application {
                         case 'b':
                             BombItem bombitem = new BombItem(j,i, Sprite.powerup_bombs.getFxImage());
                             items.add(bombitem);
-                            Grass grass3 = new Grass(j, i, Sprite.grass.getFxImage());
-                            stillObjects.add(grass3);
                             obj_matrix[j][i] = 1;
                             break;
                         case 'f':
                             FlameItem flameItem = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
                             items.add(flameItem);
+                            obj_matrix[j][i] = 3;
                             Grass grass4 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass4);
-                            obj_matrix[j][i] = 1;
                             break;
                         case 's':
                             SpeedItem speeditem1 = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
                             items.add(speeditem1);
+                            Brick brick2 = new Brick(j,i,Sprite.brick.getFxImage());
+                            stillObjects.add(brick2);
                             Grass grass5 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass5);
                             obj_matrix[j][i] = 1;

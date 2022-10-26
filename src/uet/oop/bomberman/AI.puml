@@ -1,0 +1,36 @@
+@startuml
+abstract class AI{
+    + abstract void nextMove()
+}
+class AIBFS{
+    - Bomber bomber
+    - Enemy enemy
+    + static ArrayList<String> map
+    + AIBFS(Bomber bomber, Enemy enemy)
+    + ArrayList<Integer> shortestPath
+    + int w
+    + int h
+    + int countNode = w * h
+    + int[][] node
+    + int[][] nodeMatrix
+    + ArrayList<Integer> getShortestPath()
+    + void convertToMatrix()
+    + void convertToNodeMatrix()
+    + void updateDestroy_Brick()
+    + void updateMatrix()
+    + int nextDirection(int start, int end) throws IllegalStateException
+    + void nextMove()
+}
+class AIRand{
+    - Enemy enemy
+    + void nextMove()
+}
+class AISimple{
+    # Bomber bomber
+    # Enemy enemy
+    + void nextMove()
+}
+AISimple-->AI
+AIRand-->AI
+AIBFS-->AI
+@enduml
