@@ -15,7 +15,6 @@ public class Brick extends Entity {
 
     public static ArrayList<Brick> brokenBrick = new ArrayList<>();
 
-    public static ArrayList<Brick> brokenBrick = new ArrayList<>();
     public void update(){
         if(gotBlasted()){
             obj_matrix[this.x/32][this.y/32] = 1;
