@@ -269,7 +269,6 @@ public class BombermanGame extends Application {
             }
         }
         if (enemies.size() == 0) {
-            //Portal portal = new Portal(WIDTH - 2, HEIGHT - 2, Sprite.portal.getFxImage());
             Portal portal = new Portal(WIDTH-2, HEIGHT-2, Sprite.portal.getFxImage());
             portal.setOpen(true);
             stillObjects.add(portal);
