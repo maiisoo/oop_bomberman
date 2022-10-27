@@ -71,8 +71,8 @@ public class BombermanGame extends Application {
         Text text = new Text();
         text.setText("Bombs remaining: " + bombStock);
         text.setX(20);
-        text.setY(25);
-        root.getChildren().add(text);
+        text.setY(20);
+        text.setStyle("-fx-font-size:20");
         //Tao giao dien
 
         // Tao scene
