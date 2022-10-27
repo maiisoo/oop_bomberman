@@ -27,6 +27,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -125,7 +126,7 @@ public class BombermanGame extends Application {
         createMap();
         // Them scene vao stage
         stage.setScene(scene);
-        stage.setTitle("BombermanGame: Tai Duc - Mai Anh                       Bombs remaining:" + bombStock);
+        stage.setTitle("BombermanGame: Tai Duc - Mai Anh");
         stage.show();
 
 
@@ -273,7 +274,7 @@ public class BombermanGame extends Application {
             portal.setOpen(true);
             stillObjects.add(portal);
             if (bomberman.getX() == portal.getX() && bomberman.getY() == portal.getY()){
-                Image lvUp = new Image("uploadedImg/LevelUp.png");
+                Image lvUp = new Image("uploadedImg/Win.png");
                 view.setImage(lvUp);
             }
         }

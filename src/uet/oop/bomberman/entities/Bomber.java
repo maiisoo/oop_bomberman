@@ -21,6 +21,7 @@ import uet.oop.bomberman.BombermanGame.*;
 import java.io.File;
 
 import static uet.oop.bomberman.BombermanGame.list_kill;
+import static uet.oop.bomberman.BombermanGame.view;
 
 import java.util.ArrayList;
 import java.util.List;
