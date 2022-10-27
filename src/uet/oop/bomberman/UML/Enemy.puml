@@ -25,12 +25,25 @@ class Oneal{
 class Kondoria{
     - static int swap_kill = 1
     - static int count_kill = 0
+    - static boolean isEgde = false
     + Kondoria(int xUnit, int yUnit, Image img)
     + Kondoria(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
     - void killKondoria(Enemy enemy)
+    - void moveKondoria()
     + void update()
 }
-Balloom --> Enemy
-Oneal --> Enemy
-Kondoria --> Enemy
+class Doll{
+    - static int swap_kill = 1
+    - static int count_kill = 1
+    + Doll(int xUnit, int yUnit, Image img)
+    + Doll(int xUnit, int yUnit, Image img, int is_move, int swap, String direction, int count, int count_to_run)
+    - void killDoll(Enemy enemy)
+    + void moveDoll()
+    + void update()
+}
+Balloom --> Enemy: Extends
+Oneal --> Enemy: Extends
+Kondoria --> Enemy: Extends
+Doll-->Enemy: Extends
+Doll--AI: Association
 @enduml

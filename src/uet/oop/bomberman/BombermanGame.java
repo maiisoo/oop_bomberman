@@ -218,7 +218,9 @@ public class BombermanGame extends Application {
                         case 'b':
                             BombItem bombitem = new BombItem(j,i, Sprite.powerup_bombs.getFxImage());
                             items.add(bombitem);
-                            obj_matrix[j][i] = 1;
+                            obj_matrix[j][i] = 3;
+                            Grass grass3 = new Grass(j, i, Sprite.grass.getFxImage());
+                            stillObjects.add(grass3);
                             break;
                         case 'f':
                             FlameItem flameItem = new FlameItem(j, i, Sprite.powerup_flames.getFxImage());
@@ -230,11 +232,9 @@ public class BombermanGame extends Application {
                         case 's':
                             SpeedItem speeditem1 = new SpeedItem(j, i, Sprite.powerup_speed.getFxImage());
                             items.add(speeditem1);
-                            Brick brick2 = new Brick(j,i,Sprite.brick.getFxImage());
-                            stillObjects.add(brick2);
+                            obj_matrix[j][i] = 3;
                             Grass grass5 = new Grass(j, i, Sprite.grass.getFxImage());
                             stillObjects.add(grass5);
-                            obj_matrix[j][i] = 1;
                             break;
                         default:
                             object = new Grass(j, i, Sprite.grass.getFxImage());
@@ -269,12 +269,11 @@ public class BombermanGame extends Application {
             }
         }
         if (enemies.size() == 0) {
-            //Portal portal = new Portal(WIDTH - 2, HEIGHT - 2, Sprite.portal.getFxImage());
             Portal portal = new Portal(WIDTH-2, HEIGHT-2, Sprite.portal.getFxImage());
             portal.setOpen(true);
             stillObjects.add(portal);
             if (bomberman.getX() == portal.getX() && bomberman.getY() == portal.getY()){
-                Image lvUp = new Image("uploadedImg/LevelUp.png");
+                Image lvUp = new Image("uploadedImg/Win.png");
                 view.setImage(lvUp);
             }
         }

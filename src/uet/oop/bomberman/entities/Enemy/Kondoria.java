@@ -2,14 +2,18 @@ package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.AI.AIBFS;
+import uet.oop.bomberman.AI.AISimple;
+import uet.oop.bomberman.control.Move;
+import uet.oop.bomberman.control.Move4Kondoria;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.bomberman;
-import static uet.oop.bomberman.BombermanGame.enemies;
+import static uet.oop.bomberman.BombermanGame.*;
 
 public class Kondoria extends Enemy{
     private static int swap_kill = 1;
     private static int count_kill = 0;  // Count the number of Kondoria destroyed
+
+    private static boolean isEgde = false;
     public Kondoria(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
@@ -38,6 +42,18 @@ public class Kondoria extends Enemy{
         }
     }
 
+    private void moveKondoria(){
+        if (this.y % 16 == 0 && this.x % 16 == 0) {
+            if (this.x / 32 <= 1 || this.x / 32 >= WIDTH - 2)
+                isEgde = !isEgde;
+            if (isEgde == false)
+                Move4Kondoria.left(this);
+            else {
+                Move4Kondoria.right(this);
+            }
+        }
+    }
+
     @Override
     public void update() {
         killed();
@@ -46,9 +62,6 @@ public class Kondoria extends Enemy{
             if (e instanceof Kondoria && !((Kondoria) e).isAlive)
                 killKondoria(e);
         }
-        if (this.x % 32 == 0 && this.y % 32 == 0) {
-            AIBFS bfsKondoria = new AIBFS(bomberman, this);
-            bfsKondoria.nextMove();
-        }
+        moveKondoria();
     }
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+
+import uet.oop.bomberman.entities.StaticEntity.Brick;
 import uet.oop.bomberman.utility.readMapFromFile;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.control.Move;
@@ -13,6 +15,7 @@ import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.entities.StaticEntity.Bomb;
 
 public class AIBFS extends AI{
+
     private Bomber bomber;
     private Enemy enemy;
 
@@ -150,7 +153,17 @@ public class AIBFS extends AI{
     }
 
     public void updateDestroy_Brick(){
-        //https://github.com/17021084/BomberMan_Base_NES/blob/master/src/uet/oop/bomberman/entities/character/enemy/ai/AIAdvance.java
+        if ( Brick.brokenBrick.isEmpty() ) return;
+        for ( int i = 0 ;i < Brick.brokenBrick.size();i++ ){
+            int brickX = Brick.brokenBrick.get(i).getX()/32;
+            int brickY = Brick.brokenBrick.get(i).getY()/32;
+            // kiểm tra bị phá chưa
+            if ( nodeMatrix[brickX][brickY] < 0 ){
+                //  nếu chưa phá ( tức đang âm ) thì cho nó  dương ( tức phá rồi)
+                nodeMatrix[brickX][brickY] =  nodeMatrix[brickX][brickY]*(-1);
+            }
+
+        }
     }
 
     public void updateMatrix() {
@@ -280,11 +293,22 @@ public class AIBFS extends AI{
         int result = this.nextDirection(start, end);
         //System.out.println("dg di:");
         //System.out.println(start+" "+result);
-        if (result - start == 1) Move.right(enemy);
-        if (start - result == 1) Move.left(enemy);
-        if (start > result) Move.up(enemy);
-        if (start < result) Move.down(enemy);
-
+        if (result - start == 1){
+            System.out.println("Go right");
+            Move.right(enemy);
+        }
+        if (start - result == 1){
+            System.out.println("Go left");
+            Move.left(enemy);
+        }
+        if (start > result){
+            System.out.println("Go up");
+            Move.up(enemy);
+        }
+        if (start < result){
+            System.out.println("Go down");
+            Move.down(enemy);
+        }
     }
 
 }

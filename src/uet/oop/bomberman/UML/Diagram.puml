@@ -100,28 +100,7 @@ abstract class Item{
     + void update()
     + abstract void activateImpactOnPlayer()
 }
-class Blocked{
-    + static boolean block_down(Entity entity)
-    + static boolean block_up(Entity entity)
-    + static boolean block_left(Entity entity)
-    + static boolean block_right(Entity entity)
-    + static boolean block_down_bomb(Entity entity, int power)
-    + static boolean block_up_bomb(Entity entity, int power)
-    + static boolean block_left_bomb(Entity entity, int power)
-    + static boolean block_right_bomb(Entity entity, int power)
-}
-class Move{
-    + static void checkRun(AnimatedEntity character)
-    - static void setDirection(String direction, AnimatedEntity character, int isMove)
-    + static void down(AnimatedEntity character)
-    + static void down_step(AnimatedEntity character)
-    + static void up(AnimatedEntity character)
-    + static void up_step(AnimatedEntity character)
-    + static void left(AnimatedEntity character)
-    + static void left_step(AnimatedEntity character)
-    + static void right(rtAnimatedEntity character)
-    + static void right_step(AnimatedEntity character)
-}
+
 class Bomber{
     - final static String playerDied
     - static boolean deadPlayerAudioPlayed = false
@@ -136,13 +115,16 @@ class Bomber{
     + void enemiesExposure()
     + void bomberDead()
 }
-AnimatedEntity --> Entity
-Bomb --> Entity
-Brick --> Entity
-Grass --> Entity
-Portal --> Entity
-Wall --> Entity
-Enemy --> AnimatedEntity
-Bomber --> AnimatedEntity
-Item --> Entity
+Move--Enemy: Association
+Move--Bomber: Association
+AnimatedEntity --> Entity: Extends
+Bomb --> Entity: Extends
+Brick --> Entity: Extends
+Grass --> Entity: Extends
+Portal --> Entity: Extends
+Wall --> Entity: Extends
+Enemy --> AnimatedEntity: Extends
+Bomber --> AnimatedEntity: Extends
+Item --> Entity: Extends
+Bomb--AnimatedEntity: Composion + Association
 @enduml

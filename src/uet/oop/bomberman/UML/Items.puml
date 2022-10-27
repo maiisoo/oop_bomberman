@@ -3,33 +3,40 @@
 
 class Item{
     - boolean gotEaten = false
+    - boolean gotRevealed = false
     + Item(int xUnit, int yUnit, Image img)
     + Item(int xUnit, int yUnit, Image img, boolean gotEaten)
     + boolean isGotEaten()
     + void setGotEaten(boolean gotEaten)
+    + boolean isGotRevealed()
+    + void setGotRevealed(boolean gotEaten)
     - boolean checkCollision()
+    - boolean gotBlownUp()
     + void update()
     + abstract void activateImpactOnPlayer()
+    # abstract void changePic()
 }
 
 class FlameItem{
     + FlameItem(int x, int y, Image img)
-    + FlameItem(int x, int y, Image img, boolean gotEaten)
     + void activateImpactOnPlayer()
+    # void changePic()
 }
 
 class BombItem{
     + BombItem(int x, int y, Image img)
     + void activateImpactOnPlayer()
+    # void changePic()
 }
 
 class SpeedItem{
     + SpeedItem(int x, int y, Image img)
     + SpeedItem(int x, int y, Image img, boolean gotEaten)
     + void activateImpactOnPlayer()
+    # void changePic
 }
 
-FlameItem --> Item
-BombItem --> Item
-SpeedItem --> Item
+FlameItem --> Item: Extends
+BombItem --> Item: Extends
+SpeedItem --> Item: Extends
 @enduml

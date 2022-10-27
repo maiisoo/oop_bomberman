@@ -1,0 +1,37 @@
+@startuml
+class Blocked{
+    + static boolean block_down(Entity entity)
+    + static boolean block_up(Entity entity)
+    + static boolean block_left(Entity entity)
+    + static boolean block_right(Entity entity)
+    + static boolean block_down_bomb(Entity entity, int power)
+    + static boolean block_up_bomb(Entity entity, int power)
+    + static boolean block_left_bomb(Entity entity, int power)
+    + static boolean block_right_bomb(Entity entity, int power)
+}
+class Move{
+    + static void checkRun(AnimatedEntity character)
+    - static void setDirection(String direction, AnimatedEntity character, int isMove)
+    + static void down(AnimatedEntity character)
+    + static void down_step(AnimatedEntity character)
+    + static void up(AnimatedEntity character)
+    + static void up_step(AnimatedEntity character)
+    + static void left(AnimatedEntity character)
+    + static void left_step(AnimatedEntity character)
+    + static void right(rtAnimatedEntity character)
+    + static void right_step(AnimatedEntity character)
+}
+class Move4Kondoria{
+    + static void checkRun(AnimatedEntity character)
+    - static void setDirection(String direction, AnimatedEntity character)
+    + static void down(AnimatedEntity character)
+    + static void down_step(AnimatedEntity character)
+    + static void up(AnimatedEntity character)
+    + static void up_step(AnimatedEntity character)
+    + static void left(AnimatedEntity character)
+    + static void left_step(AnimatedEntity character)
+    + static void right(rtAnimatedEntity character)
+    + static void right_step(AnimatedEntity character)
+}
+Move4Kondoria-->Move: Extends
+@enduml
